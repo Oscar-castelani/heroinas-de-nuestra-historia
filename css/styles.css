@@ -1010,6 +1010,57 @@ button:focus-visible {
   margin-bottom: var(--space-xl);
 }
 
+/* ---------- Composición imagen + texto de la Introducción ----------
+   Dos columnas: una imagen ilustrativa junto al texto de la sección.
+   En móvil se apilan en una sola columna (imagen y texto a ancho completo).
+   Las imágenes comparten el mismo tratamiento visual que la lámina
+   panorámica (.hero__media--panorama img): mismo radio, borde rosado
+   tenue, sombra suave y fondo de superficie, para formar un único
+   sistema de diseño. */
+.intro-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  /* Imagen a la izquierda (≈48 % del ancho), texto a la derecha. */
+  .intro-split--media-left {
+    grid-template-columns: 48% 1fr;
+    gap: var(--space-2xl);
+  }
+
+  /* Composición invertida: texto a la izquierda, imagen a la derecha
+     con exactamente el mismo ancho de columna que la sección anterior. */
+  .intro-split--media-right {
+    grid-template-columns: 1fr 48%;
+    gap: var(--space-2xl);
+  }
+}
+
+.intro-figure {
+  margin: 0;
+}
+
+.intro-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Conserva la proporción original (3:2) de las láminas; iguala la altura
+     visual entre ambas secciones y evita cualquier deformación. */
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+  border-radius: 20px;
+  border: 1px solid rgba(217, 166, 179, 0.35);
+  box-shadow: 0 10px 30px rgba(111, 61, 75, 0.08);
+  background-color: var(--color-surface);
+}
+
+.intro-split__text {
+  min-width: 0;
+}
+
 .content-section h2 {
   display: flex;
   align-items: center;
