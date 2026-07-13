@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heroínas | Heroínas de nuestra historia</title>
+  <meta name="description" content="Recorré la historia de seis mujeres que participaron en los procesos de independencia de Argentina y América Latina: su introducción, sus historias y la línea de tiempo.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Heroínas | Heroínas de nuestra historia">
+  <meta property="og:description" content="Elegí por dónde comenzar tu recorrido por la historia de las heroínas de la independencia.">
+  <meta property="og:image" content="img/hero-illustration.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="img/hero-illustration.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
+  <div class="page-panel">
+
+  <header class="site-header">
+    <div class="nav-container">
+      <a class="logo" href="indice.html"><img class="logo__mark" src="img/LOGO%20SAN%20PEDRO.png" alt="" width="38" height="43">Heroínas <span>de nuestra historia</span></a>
+
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Abrir menú de navegación">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+
+      <nav class="main-nav" id="navMenu" aria-label="Navegación principal">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="introduccion.html">Introducción</a></li>
+          <li><a href="indice.html" aria-current="page">Heroínas</a></li>
+          <li><a href="linea-de-tiempo.html">Línea de tiempo</a></li>
+          <li><a href="reflexion.html">Reflexión</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- Bienvenida -->
+    <section class="content-section bg-cream has-blob has-blob--tr has-blob--pink text-center" id="bienvenidos">
+      <div class="container">
+        <span class="eyebrow">Un recorrido en nueve salas</span>
+        <h1>Bienvenidos</h1>
+        <div class="divider"><span class="divider__mark">✦</span></div>
+        <p class="content-section__intro mx-auto">
+          En este sitio recorreremos la historia de mujeres que participaron en los procesos de
+          independencia de América del Sur y cuyo legado continúa siendo fundamental para comprender
+          nuestra historia. Elegí una sala del recorrido para comenzar.
+        </p>
+      </div>
+    </section>
+
+    <!-- Recorrido: Introducción / Heroínas / Tu recorrido -->
+    <section id="heroinas" class="content-section bg-cream has-blob has-blob--bl has-blob--mauve">
+      <div class="recorrido-container">
+        <div class="recorrido-grid">
+
+          <!-- Columna izquierda: Introducción -->
+          <div class="intro-card">
+            <span class="intro-card__icon" aria-hidden="true">📖</span>
+            <h2>Introducción</h2>
+            <p>Conocé el contexto histórico y el papel de las mujeres en la lucha por la independencia.</p>
+            <a class="btn btn--primary" href="introduccion.html">Leer</a>
+          </div>
+
+          <!-- Columna central: grilla de heroínas -->
+          <div class="heroine-cards">
+
+            <article class="heroine-card">
+              <figure class="heroine-card__figure">
+                <img src="img/manuela-saenz.jpg" alt="Retrato de Manuela Sáenz vestida de blanco con banda tricolor, símbolo de su compromiso con la independencia sudamericana." width="500" height="667" loading="lazy" onerror="this.closest('.heroine-card__figure').classList.add('img-fallback')">
+              </figure>
+              <div class="heroine-card__body">
+                <h3>Manuela Sáenz</h3>
+                <p class="heroine-card__dates">Quito, 1797 – Paita, 1856</p>
+                <p>
+                  Patriota ecuatoriana. Espía, estratega y confidente de Simón Bolívar.
+                </p>
+                <a class="heroine-card__link" href="heroinas/manuela-saenz.html">Conocer su historia</a>
+              </div>
+            </article>
+
+            <article class="heroine-card">
+              <figure class="heroine-card__figure">
+                <img src="img/juana-azurduy.jpg" alt="Ilustración de época de Juana Azurduy a caballo, vestida con uniforme militar, liderando tropas patriotas." width="500" height="667" loading="lazy" onerror="this.closest('.heroine-card__figure').classList.add('img-fallback')">
+              </figure>
+              <div class="heroine-card__body">
+                <h3>Juana Azurduy</h3>
+                <p class="heroine-card__dates">Chuquisaca, 1780 – Sucre, 1862</p>
+                <p>
+                  Líder militar altoperuana que luchó junto a las fuerzas patriotas.
+                </p>
+                <a class="heroine-card__link" href="heroinas/juana-azurduy.html">Conocer su historia</a>
+              </div>
+            </article>
+
+            <article class="heroine-card">
+              <figure class="heroine-card__figure">
+                <img src="img/mariquita-sanchez.jpg" alt="Retrato de época de Mariquita Sánchez de Thompson, anfitriona de tertulias patriotas en Buenos Aires durante la independencia argentina." width="400" height="479" loading="lazy" onerror="this.closest('.heroine-card__figure').classList.add('img-fallback')">
+              </figure>
+              <div class="heroine-card__body">
+                <h3>Mariquita Sánchez de Thompson</h3>
+                <p class="heroine-card__dates">Buenos Aires, 1786 – 1868</p>
+                <p>
+                  Referente política y cultural de la Revolución de Mayo.
+                </p>
+                <a class="heroine-card__link" href="heroinas/mariquita-sanchez.html">Conocer su historia</a>
+              </div>
+            </article>
+
+            <article class="heroine-card">
+              <figure class="heroine-card__figure">
+                <img src="img/macacha-guemes.png" alt="Retrato en miniatura de María Magdalena Güemes de Tejada, conocida como Macacha Güemes." width="500" height="667" loading="lazy" onerror="this.closest('.heroine-card__figure').classList.add('img-fallback')">
+              </figure>
+              <div class="heroine-card__body">
+                <h3>Macacha Güemes</h3>
+                <p class="heroine-card__dates">Salta, 1787 – 1866</p>
+                <p>
+                  Colaboradora y líder política fundamental en la defensa del norte argentino.
+                </p>
+                <a class="heroine-card__link" href="heroinas/macacha-guemes.html">Conocer su historia</a>
+              </div>
+            </article>
+
+            <article class="heroine-card">
+              <figure class="heroine-card__figure">
+                <img src="img/remedios-del-valle.jpg" alt="Ilustración de María Remedios del Valle con uniforme militar, con la bandera argentina de fondo." width="500" height="667" loading="lazy" onerror="this.closest('.heroine-card__figure').classList.add('img-fallback')">
+              </figure>
+              <div class="heroine-card__body">
+                <h3>María Remedios del Valle</h3>
+                <p class="heroine-card__dates">Buenos Aires, c. 1766 – 1847</p>
+                <p>
+                  Conocida como "La Madre de la Patria". Capitana del Ejército del Norte.
+                </p>
+                <a class="heroine-card__link" href="heroinas/maria-remedios-del-valle.html">Conocer su historia</a>
+              </div>
+            </article>
+
+            <article class="heroine-card">
+              <figure class="heroine-card__figure">
+                <img src="img/policarpa-salavarrieta.jpg" alt="Retrato pictórico de Policarpa Salavarrieta, conocida como La Pola, heroína de la independencia de Nueva Granada." width="500" height="667" loading="lazy" onerror="this.closest('.heroine-card__figure').classList.add('img-fallback')">
+              </figure>
+              <div class="heroine-card__body">
+                <h3>Policarpa Salavarrieta</h3>
+                <p class="heroine-card__dates">Guaduas, 1795 – Bogotá, 1817</p>
+                <p>
+                  "La Pola": una de las principales espías de la independencia de Nueva Granada.
+                </p>
+                <a class="heroine-card__link" href="heroinas/policarpa-salavarrieta.html">Conocer su historia</a>
+              </div>
+            </article>
+
+            <!-- Card de Línea de tiempo, integrada en la grilla -->
+            <article class="heroine-card heroine-card--timeline">
+              <span class="timeline-card__icon" aria-hidden="true">⏳</span>
+              <div class="timeline-card__body">
+                <h3>Línea de tiempo</h3>
+                <p>Recorré cronológicamente los hechos más importantes de la independencia.</p>
+              </div>
+              <a class="heroine-card__link" href="linea-de-tiempo.html">Ver línea de tiempo</a>
+            </article>
+
+          </div>
+
+          <!-- Columna derecha: Tu recorrido -->
+          <aside class="toc-card" aria-label="Tabla de contenidos del recorrido">
+            <h2>Tu recorrido</h2>
+            <ol>
+              <li><a href="introduccion.html">Introducción</a></li>
+              <li><a href="heroinas/manuela-saenz.html">Manuela Sáenz</a></li>
+              <li><a href="heroinas/juana-azurduy.html">Juana Azurduy</a></li>
+              <li><a href="heroinas/mariquita-sanchez.html">Mariquita Sánchez de Thompson</a></li>
+              <li><a href="heroinas/macacha-guemes.html">Macacha Güemes</a></li>
+              <li><a href="heroinas/maria-remedios-del-valle.html">María Remedios del Valle</a></li>
+              <li><a href="heroinas/policarpa-salavarrieta.html">Policarpa Salavarrieta</a></li>
+              <li><a href="linea-de-tiempo.html">Línea de tiempo</a></li>
+              <li><a href="reflexion.html">Reflexión final</a></li>
+            </ol>
+            <img class="toc-card__illustration" src="img/hero-illustration.svg" alt="" aria-hidden="true" loading="lazy">
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="divider container"><span class="divider__mark">✦</span></div>
+
+    <!-- Reflexión final — bloque destacado -->
+    <section id="bloque-reflexion" class="content-section bg-lavender has-blob has-blob--br has-blob--rose">
+      <div class="container featured-card featured-card--reverse">
+        <div class="featured-card__body">
+          <span class="eyebrow">Para cerrar el recorrido</span>
+          <h2>Reflexión final</h2>
+          <p>
+            El lugar de las mujeres en la independencia: una mirada final sobre su participación activa
+            y la importancia de recuperar sus historias.
+          </p>
+          <a class="btn btn--primary" href="reflexion.html">Leer reflexión</a>
+        </div>
+        <figure class="featured-card__figure" aria-hidden="true">
+          <img src="img/hero-illustration.svg" alt="" loading="lazy">
+        </figure>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__content">
+      <h2>Heroínas de nuestra historia</h2>
+      <p>Sitio educativo sobre las mujeres que participaron en la independencia de Argentina y América Latina.</p>
+      <p class="site-footer__meta">
+        © <span id="year"></span> — <a href="index.html">Volver a la portada</a>
+      </p>
+    </div>
+  </footer>
+  </div>
+
+
+  <script src="js/script.js"></script>
+</body>
+</html>

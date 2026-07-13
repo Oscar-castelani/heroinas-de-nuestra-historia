@@ -1,0 +1,2064 @@
+/* =========================================================
+   Heroínas de nuestra historia — hoja de estilos principal
+   ========================================================= */
+
+/* ---------- Variables globales ---------- */
+:root {
+  /* Paleta rosada pastel */
+  --color-background: #FFF8F6;   /* crema rosado — fondo principal */
+  --color-surface: #FFFCFB;      /* blanco cálido — cards y figuras */
+  --color-pink-light: #F8E1E7;   /* rosa empolvado muy claro — secciones alternas */
+  --color-pink: #EFC7D2;         /* rosa pastel — hover, iconos */
+  --color-pink-muted: #D9A6B3;   /* rosa antiguo — detalles decorativos */
+  --color-mauve: #C9AEC6;        /* malva suave — detalles decorativos */
+  --color-lavender: #E8DDEB;     /* lavanda rosada — secciones alternas */
+  --color-beige: #F2E3DE;        /* beige rosado — secciones alternas */
+  --color-heading: #6F3D4B;      /* bordó apagado — títulos y detalles fuertes */
+  --color-text: #4E4148;         /* gris ciruela — texto principal */
+  --color-accent: #C9A96E;       /* dorado suave — acento secundario */
+  --color-accent-deep: #6f5423;  /* dorado oscurecido — texto pequeño (eyebrows) con contraste AA en cualquier fondo del sitio */
+  --color-border: rgba(111, 61, 75, 0.16);
+  --color-hairline: rgba(111, 61, 75, 0.1);
+
+  /* Tipografía */
+  --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Source Sans 3', -apple-system, Segoe UI, Arial, sans-serif;
+
+  /* Espaciado */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.75rem;
+  --space-lg: 3rem;
+  --space-xl: 5rem;
+  --space-2xl: 7.5rem;
+
+  /* Bordes y sombras */
+  --radius-sm: 8px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+  --shadow-soft: 0 4px 20px rgba(111, 61, 75, 0.055);
+  --shadow-hover: 0 18px 44px rgba(111, 61, 75, 0.12);
+  --shadow-portrait: 0 24px 56px rgba(111, 61, 75, 0.16);
+
+  /* Layout */
+  --container-width: 1200px;
+  --header-height: 100px;
+
+  /* Transiciones */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.35s ease;
+  --ease-elegant: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --container-width: 1320px;
+  }
+}
+
+/* ---------- Reset básico ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  line-height: 1.65;
+  overflow-x: hidden;
+  position: relative;
+  background: linear-gradient(165deg, #FFF8F6 0%, #FBEAF0 42%, #F5E3DC 100%);
+  min-height: 100vh;
+}
+
+/* Manchas acuareladas muy sutiles detrás del panel flotante, fijas al
+   viewport para que no se desplacen ni interfieran con el contenido. */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+body::before {
+  top: -12%;
+  left: -10%;
+  width: 46vw;
+  height: 46vw;
+  background-color: var(--color-pink);
+}
+
+body::after {
+  bottom: -14%;
+  right: -8%;
+  width: 42vw;
+  height: 42vw;
+  background-color: var(--color-mauve);
+}
+
+/* El panel flotante: todo el sitio vive dentro de esta tarjeta grande,
+   centrada, con bordes redondeados y una sombra muy suave, apoyada sobre
+   el fondo con degradado. */
+.page-panel {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: clamp(1rem, 4vw, 2.75rem) auto;
+  border-radius: 24px;
+  background-color: var(--color-surface);
+  box-shadow: 0 30px 70px rgba(111, 61, 75, 0.14), 0 6px 18px rgba(111, 61, 75, 0.06);
+  overflow: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  color: var(--color-heading);
+  font-weight: 700;
+  margin: 0 0 var(--space-sm);
+}
+
+h1 {
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  line-height: 1.2;
+}
+
+h3 {
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+p {
+  margin: 0 0 var(--space-sm);
+}
+
+p, li {
+  text-wrap: pretty;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
+
+/* ---------- Eyebrow: pequeña etiqueta editorial sobre un título ---------- */
+.eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent-deep);
+  margin-bottom: var(--space-sm);
+}
+
+/* ---------- Divisor ornamental sutil, estilo manuscrito ---------- */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  margin: 0 auto;
+  max-width: 220px;
+  color: var(--color-accent);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, currentColor);
+}
+
+.divider::after {
+  background: linear-gradient(90deg, currentColor, transparent);
+}
+
+.divider__mark {
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+/* Desplaza el punto de anclaje para que el header sticky no tape los títulos */
+main section[id] {
+  scroll-margin-top: calc(var(--header-height) + 16px);
+}
+
+/* ---------- Accesibilidad: enlace saltar contenido ---------- */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  z-index: 2000;
+  background: var(--color-heading);
+  color: var(--color-surface);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  left: var(--space-sm);
+  top: var(--space-sm);
+}
+
+/* ---------- Foco visible general ---------- */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--color-heading);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- Botones ----------
+   Estilo editorial: pastilla delgada, versalitas espaciadas, sombra casi
+   inexistente en reposo. El peso visual lo da la tipografía, no el relleno. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1rem 2.1rem;
+  min-height: 44px;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: transform 300ms var(--ease-elegant), box-shadow 300ms var(--ease-elegant), background-color 300ms var(--ease-elegant), border-color 300ms var(--ease-elegant);
+}
+
+.btn--primary {
+  background-color: var(--color-heading);
+  color: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  background-color: #5c3140;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.btn--primary:active {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   Encabezado y navegación
+   ========================================================= */
+.site-header {
+  position: relative;
+  z-index: 10;
+  background-color: rgba(255, 252, 251, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.nav-container {
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding-inline: var(--space-lg);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  color: var(--color-heading);
+  white-space: nowrap;
+}
+
+.logo__mark {
+  width: 38px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.logo span {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-heading);
+  opacity: 0.75;
+}
+
+/* Botón hamburguesa */
+.nav-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.nav-toggle__bar {
+  display: block;
+  width: 26px;
+  height: 3px;
+  border-radius: 2px;
+  background-color: var(--color-heading);
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.main-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text);
+  padding: 0.5rem 1.15rem;
+  border-radius: 999px;
+  position: relative;
+  transition: color 250ms ease, background-color 250ms ease;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  color: var(--color-heading);
+  background-color: var(--color-pink-light);
+}
+
+/* Página actual: píldora rosa pastel, como en la referencia */
+.main-nav a[aria-current="page"] {
+  color: var(--color-heading);
+  background-color: var(--color-pink);
+  font-weight: 700;
+}
+
+/* Navegación móvil (por defecto oculta en pantallas pequeñas) */
+@media (max-width: 899px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-soft);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-base);
+  }
+
+  .main-nav.is-open {
+    max-height: 32rem;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    padding: var(--space-sm) var(--space-md) var(--space-md);
+    gap: 0.35rem;
+  }
+
+  .main-nav a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.6rem 0.9rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .nav-toggle {
+    display: none;
+  }
+
+  .main-nav {
+    max-height: none;
+  }
+}
+
+/* =========================================================
+   Hero
+   ========================================================= */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  gap: var(--space-xl);
+  align-items: center;
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding: var(--space-2xl) var(--space-md);
+}
+
+/* Forma orgánica de fondo, muy sutil, únicamente decorativa */
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -160px;
+  right: -120px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background-color: var(--color-pink);
+  filter: blur(70px);
+  opacity: 0.07;
+  pointer-events: none;
+}
+
+.hero__title {
+  font-size: clamp(2.6rem, 6vw, 4.4rem);
+  margin-bottom: var(--space-sm);
+}
+
+.hero__subtitle {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  line-height: 1.4;
+  color: var(--color-accent-deep);
+  margin-bottom: var(--space-lg);
+}
+
+.hero__text {
+  font-size: 1.1rem;
+  line-height: 1.75;
+  max-width: 58ch;
+  color: var(--color-text);
+}
+
+.hero__media img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-portrait);
+}
+
+/* ---------- Ilustración panorámica de las seis heroínas (Introducción) ----------
+   Se muestra completa (sin recorte): width 100% + height auto conserva la
+   proporción original de la lámina. Tratamiento propio: esquinas más suaves,
+   borde rosado tenue, sombra muy suave y un velo inferior apenas perceptible
+   para integrarla con el fondo cálido de la página. */
+.hero__media--panorama {
+  position: relative;
+  margin: 0;
+  isolation: isolate;
+}
+
+.hero__media--panorama img {
+  display: block;
+  border-radius: 20px;
+  border: 1px solid rgba(217, 166, 179, 0.35);
+  box-shadow: 0 10px 30px rgba(111, 61, 75, 0.08);
+  background-color: var(--color-surface);
+}
+
+.hero__media--panorama::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 16%;
+  border-radius: 0 0 20px 20px;
+  background: linear-gradient(to top, rgba(255, 248, 246, 0.28), transparent);
+  pointer-events: none;
+}
+
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr 1.05fr;
+    gap: var(--space-2xl);
+  }
+
+  /* En la Introducción la ilustración es el elemento protagonista, pero se
+     mantiene entre el 45 % y el 50 % del ancho para equilibrar con el texto. */
+  #presentacion.hero {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+  }
+}
+
+/* ---------- Entrada escalonada del hero (se ejecuta al cargar, sin depender de JS) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes imageIn {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .hero .breadcrumb {
+    animation: fadeIn 500ms ease-out both;
+  }
+
+  .hero__title {
+    animation: fadeUp 700ms var(--ease-elegant) both;
+  }
+
+  .hero__subtitle {
+    animation: fadeIn 600ms ease-out 150ms both;
+  }
+
+  .hero__text {
+    animation: fadeUp 600ms var(--ease-elegant) 260ms both;
+  }
+
+  .hero__content .btn {
+    animation: fadeUp 600ms var(--ease-elegant) 380ms both;
+  }
+
+  .hero__media img {
+    animation: imageIn 900ms var(--ease-elegant) 100ms both;
+  }
+
+  /* Portada: mismo lenguaje de animación, secuencia propia empezando por el logo */
+  .cover__logo {
+    animation: imageIn 800ms var(--ease-elegant) both;
+  }
+
+  .cover .hero__title {
+    animation-delay: 150ms;
+  }
+
+  .cover .hero__subtitle {
+    animation-delay: 300ms;
+  }
+
+  .cover__meta {
+    animation: fadeUp 600ms var(--ease-elegant) 450ms both;
+  }
+
+  .cover .btn {
+    animation: fadeUp 600ms var(--ease-elegant) 600ms both;
+  }
+}
+
+/* =========================================================
+   Secciones de protagonistas
+   ========================================================= */
+/* =========================================================
+   Componentes reutilizables de texto (índice y páginas individuales)
+   ========================================================= */
+.heroine__header h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin-bottom: 0.35rem;
+}
+
+.heroine__dates {
+  font-weight: 600;
+  font-style: italic;
+  color: var(--color-heading);
+  font-size: 1rem;
+  margin-bottom: var(--space-md);
+}
+
+.heroine__intro {
+  font-size: 1.08rem;
+  line-height: 1.7;
+  max-width: 72ch;
+  margin-bottom: var(--space-md);
+}
+
+/* ---------- Retrato (figura con pie de foto) ---------- */
+/* Retrato editorial: sin caja ni fondo blanco, la fotografía flota
+   directamente sobre la página con un borde de aire y una sombra suave,
+   como una lámina de museo en vez de una foto "enmarcada". */
+.heroine__figure {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 400px;
+}
+
+.heroine__figure img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: 50% 16%;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-portrait);
+  background-color: var(--color-pink-light);
+}
+
+/* Respaldo visual si la imagen no carga */
+.heroine__figure.img-fallback img {
+  object-fit: contain;
+  padding: var(--space-md);
+  background-color: var(--color-pink-light);
+}
+
+.heroine__figure figcaption {
+  text-align: center;
+  font-size: 0.76rem;
+  letter-spacing: 0.03em;
+  color: var(--color-text);
+  opacity: 0.6;
+  padding-top: var(--space-sm);
+}
+
+@media (min-width: 900px) {
+  .heroine__figure {
+    max-width: 520px;
+  }
+}
+
+/* ---------- Cards Ideas / Acciones / Legado ---------- */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+/* ---------- Cuadrícula de Logros destacados (reutiliza .info-card) ---------- */
+.logros-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+@media (min-width: 640px) {
+  .logros-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .logros-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.logros-grid .info-card {
+  text-align: left;
+}
+
+.logros-grid .info-card p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+@media (min-width: 640px) {
+  .info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .info-card--legado {
+    grid-column: 1 / -1;
+  }
+}
+
+.info-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.75rem, 2.6vw, 2.5rem);
+  box-shadow: var(--shadow-soft);
+  transition: transform 300ms var(--ease-elegant), box-shadow 300ms var(--ease-elegant), border-color 300ms var(--ease-elegant);
+}
+
+.info-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: var(--color-pink);
+  font-size: 1.4rem;
+  margin-bottom: var(--space-md);
+}
+
+/* Variación sutil de color entre Ideas / Acciones / Legado */
+.info-card:nth-child(2) .info-card__icon {
+  background-color: var(--color-mauve);
+}
+
+.info-card--legado .info-card__icon {
+  background-color: var(--color-beige);
+}
+
+.info-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.info-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.info-card li {
+  font-size: 1rem;
+  line-height: 1.6;
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.info-card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-pink-muted);
+}
+
+/* ---------- Ideas / Acciones / Aporte / Legado: listas abiertas, sin caja ----------
+   A diferencia de Logros (cards reales en cuadrícula), estas listas respiran
+   directamente sobre el fondo de la sección: sin superficie, sin borde,
+   sin sombra. La viñeta pasa de punto a un pequeño trazo dorado. */
+.info-card--wide {
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  max-width: 76ch;
+}
+
+.info-card--wide li {
+  font-size: 1.08rem;
+  line-height: 1.8;
+  padding-left: 1.6rem;
+}
+
+.info-card--wide li::before {
+  top: 0.8em;
+  width: 18px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: var(--color-accent);
+}
+
+/* En las cards de ancho completo, dos columnas de lectura en pantallas amplias */
+@media (min-width: 900px) {
+  .info-card--legado ul,
+  .info-card--wide ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--space-2xl);
+    row-gap: 1rem;
+  }
+
+  .info-card--wide {
+    max-width: none;
+  }
+}
+
+/* Hover discreto solo en dispositivos con puntero fino (evita afectar celulares) */
+@media (hover: hover) and (pointer: fine) {
+  .info-card--wide:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--color-pink-muted);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+  .info-card:hover {
+    transform: none;
+  }
+}
+
+/* ---------- Efecto stagger al aparecer (clase añadida por JS) ----------
+   Se reutiliza para .info-grid (Ideas/Acciones/Legado), .logros-grid
+   (Logros destacados) y .heroine-cards (cuadrícula de la portada). */
+.info-grid.reveal-stagger .info-card,
+.logros-grid.reveal-stagger .info-card,
+.heroine-cards.reveal-stagger .heroine-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.info-grid.reveal-stagger.is-visible .info-card,
+.logros-grid.reveal-stagger.is-visible .info-card,
+.heroine-cards.reveal-stagger.is-visible .heroine-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.info-grid.reveal-stagger .info-card:nth-child(1),
+.logros-grid.reveal-stagger .info-card:nth-child(1),
+.heroine-cards.reveal-stagger .heroine-card:nth-child(1) { transition-delay: 0ms; }
+
+.info-grid.reveal-stagger .info-card:nth-child(2),
+.logros-grid.reveal-stagger .info-card:nth-child(2),
+.heroine-cards.reveal-stagger .heroine-card:nth-child(2) { transition-delay: 90ms; }
+
+.info-grid.reveal-stagger .info-card:nth-child(3),
+.logros-grid.reveal-stagger .info-card:nth-child(3),
+.heroine-cards.reveal-stagger .heroine-card:nth-child(3) { transition-delay: 180ms; }
+
+.logros-grid.reveal-stagger .info-card:nth-child(4),
+.heroine-cards.reveal-stagger .heroine-card:nth-child(4) { transition-delay: 270ms; }
+
+.heroine-cards.reveal-stagger .heroine-card:nth-child(5) { transition-delay: 360ms; }
+.heroine-cards.reveal-stagger .heroine-card:nth-child(6) { transition-delay: 450ms; }
+.heroine-cards.reveal-stagger .heroine-card:nth-child(7) { transition-delay: 540ms; }
+
+/* ---------- Frase destacada ---------- */
+/* Cita editorial: sin caja ni relleno de color, apenas un filete dorado
+   y una comilla ornamental — como una nota al margen de un manuscrito. */
+.quote {
+  margin: 0;
+  padding-left: var(--space-xl);
+  border-left: 1.5px solid var(--color-accent);
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  line-height: 1.5;
+  color: var(--color-heading);
+  position: relative;
+  max-width: 62ch;
+}
+
+.quote::before {
+  content: "\201C";
+  position: absolute;
+  left: calc(var(--space-xl) - 0.72em);
+  top: -0.3em;
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  font-family: var(--font-heading);
+  line-height: 1;
+}
+
+/* =========================================================
+   Componentes reutilizables: etiquetas, breadcrumb, secciones
+   ========================================================= */
+
+/* ---------- Etiqueta / badge (tipo de participación, aporte directo…) ---------- */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background-color: var(--color-pink-light);
+  color: var(--color-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.tag--gold {
+  background-color: #f2e6c9;
+  color: #6b5323;
+}
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb {
+  font-size: 0.85rem;
+  margin-bottom: var(--space-md);
+}
+
+.breadcrumb ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-text);
+}
+
+.breadcrumb li:not(:last-child)::after {
+  content: "/";
+  color: var(--color-pink-muted);
+}
+
+.breadcrumb a {
+  color: var(--color-heading);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.breadcrumb a:hover,
+.breadcrumb a:focus-visible {
+  border-bottom-color: var(--color-heading);
+}
+
+.breadcrumb [aria-current="page"] {
+  font-weight: 600;
+}
+
+/* ---------- Secciones de contenido genéricas (páginas individuales) ---------- */
+.content-section,
+.quote-block-section {
+  position: relative;
+  padding: var(--space-2xl) 0;
+}
+
+.content-section__intro {
+  max-width: 72ch;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin-bottom: var(--space-xl);
+}
+
+.content-section h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  margin-bottom: var(--space-lg);
+}
+
+/* Pequeño filete ornamental bajo el ícono de cada título de sección, en el
+   espíritu de un manuscrito iluminado: discreto, nunca protagonista. */
+.content-section h2 .info-card__icon {
+  position: relative;
+}
+
+.content-section h2 .info-card__icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -0.85rem;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-accent);
+  opacity: 0.6;
+}
+
+/* Botón secundario, discreto (p. ej. "Volver a todas las heroínas") */
+.btn--secondary {
+  background-color: transparent;
+  color: var(--color-heading);
+  border-color: var(--color-heading);
+}
+
+.btn--secondary:hover,
+.btn--secondary:focus-visible {
+  background-color: var(--color-heading);
+  color: var(--color-surface);
+}
+
+/* ---------- Bloque destacado del índice (Introducción / Reflexión) ----------
+   Composición amplia de dos columnas, sin caja: el aire entre imagen y
+   texto hace la separación, no un borde. */
+.featured-card {
+  display: grid;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+@media (min-width: 800px) {
+  .featured-card {
+    grid-template-columns: 1.05fr 1fr;
+    gap: var(--space-2xl);
+  }
+
+  .featured-card--reverse .featured-card__body {
+    order: 2;
+  }
+
+  .featured-card--reverse .featured-card__figure {
+    order: 1;
+  }
+}
+
+.featured-card__body p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  max-width: 52ch;
+  margin-bottom: var(--space-lg);
+}
+
+.featured-card__figure {
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.featured-card__figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Banda horizontal destacada (Línea de tiempo) ---------- */
+.featured-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-lg) var(--space-xl);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-hairline);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 300ms var(--ease-elegant), box-shadow 300ms var(--ease-elegant), border-color 300ms var(--ease-elegant);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .featured-banner:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--color-pink-muted);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+  .featured-banner:hover {
+    transform: none;
+  }
+}
+
+.featured-banner__icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.featured-banner__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
+}
+
+.featured-banner__title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-heading);
+}
+
+.featured-banner__text {
+  font-size: 0.98rem;
+  color: var(--color-text);
+  margin-top: 0.3rem;
+}
+
+.featured-banner__cta {
+  font-weight: 700;
+  font-size: 0.86rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-heading);
+  white-space: nowrap;
+}
+
+/* =========================================================
+   Índice: layout de tres columnas (Introducción / Heroínas / Tu recorrido)
+   ========================================================= */
+.recorrido-container {
+  width: 100%;
+  max-width: 1480px;
+  margin-inline: auto;
+  padding-inline: var(--space-lg);
+}
+
+.recorrido-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  align-items: stretch;
+}
+
+/* Evita que cualquier columna interna (grilla de heroínas, textos largos)
+   fuerce a la grilla a crecer más allá del contenedor y provoque scroll
+   horizontal. */
+.recorrido-grid > * {
+  min-width: 0;
+}
+
+@media (min-width: 1100px) {
+  .recorrido-grid {
+    grid-template-columns:
+      minmax(200px, 220px)
+      minmax(0, 1fr)
+      minmax(180px, 210px);
+    gap: 24px;
+  }
+}
+
+/* ---------- Columna izquierda: card de Introducción ---------- */
+.intro-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  height: 100%;
+  padding: var(--space-lg) var(--space-md);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-pink-muted);
+  border-color: rgba(217, 166, 179, 0.35);
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
+}
+
+.intro-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 84px;
+  height: 84px;
+  margin-bottom: var(--space-lg);
+  border-radius: 50%;
+  background-color: var(--color-pink-light);
+  font-size: 2.4rem;
+}
+
+.intro-card h2 {
+  font-size: 1.4rem;
+  margin-bottom: var(--space-sm);
+}
+
+.intro-card p {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  margin-bottom: var(--space-lg);
+}
+
+.intro-card .btn {
+  margin-top: auto;
+}
+
+/* ---------- Columna derecha: "Tu recorrido" ---------- */
+.toc-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 420px;
+  padding: 24px;
+  background-color: var(--color-pink-light);
+  background-image: linear-gradient(180deg, #FCEFF3 0%, var(--color-pink-light) 100%);
+  border: 1px solid rgba(217, 166, 179, 0.35);
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
+}
+
+.toc-card h2 {
+  font-size: 1.15rem;
+  margin-bottom: var(--space-md);
+}
+
+/* Lista con forma de recorrido: una línea vertical continua uniendo los
+   puntos rosados de cada etapa. */
+.toc-card ol {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.toc-card ol::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 8px;
+  bottom: 8px;
+  width: 1.5px;
+  background: rgba(210, 132, 151, 0.45);
+}
+
+.toc-card li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 0.84rem;
+  line-height: 1.35;
+}
+
+.toc-card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--color-pink-muted);
+  border-radius: 50%;
+  background: var(--color-surface);
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.toc-card a {
+  display: inline-block;
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 1px dashed transparent;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.toc-card a:hover,
+.toc-card a:focus-visible {
+  color: var(--color-heading);
+  border-color: var(--color-pink-muted);
+}
+
+/* Etapa activa: punto relleno y texto en bordó con más peso. */
+.toc-card li:has(a[aria-current="page"])::before {
+  background: var(--color-pink-muted);
+  border-color: var(--color-heading);
+}
+
+.toc-card a[aria-current="page"] {
+  color: var(--color-heading);
+  font-weight: 700;
+}
+
+.toc-card__illustration {
+  margin-top: auto;
+  padding-top: var(--space-md);
+  opacity: 0.18;
+  filter: saturate(0.6);
+  pointer-events: none;
+}
+
+/* ---------- Columna central: cards de heroínas, horizontales ---------- */
+.heroine-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+@media (min-width: 560px) {
+  .heroine-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .heroine-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.heroine-card {
+  display: grid;
+  grid-template-columns: minmax(96px, 42%) minmax(0, 1fr);
+  min-height: 172px;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--color-surface);
+  border: 1px solid rgba(111, 61, 75, 0.12);
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  transition: transform 250ms var(--ease-elegant), box-shadow 250ms var(--ease-elegant);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .heroine-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+  .heroine-card:hover {
+    transform: none;
+  }
+}
+
+.heroine-card__figure {
+  position: relative;
+  margin: 0;
+  height: 100%;
+  background-color: var(--color-pink-light);
+  overflow: hidden;
+}
+
+.heroine-card__figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 14%;
+}
+
+/* Funde el borde derecho del retrato con el fondo cálido de la card, para
+   que la imagen se integre sin un corte vertical duro. */
+.heroine-card__figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    transparent 68%,
+    rgba(255, 252, 251, 0.96) 100%
+  );
+  pointer-events: none;
+}
+
+.heroine-card__figure.img-fallback img {
+  object-fit: contain;
+  padding: var(--space-xs);
+}
+
+.heroine-card__figure.img-fallback::after {
+  display: none;
+}
+
+.heroine-card__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: 18px 18px 16px 14px;
+}
+
+.heroine-card__body h3 {
+  font-size: 1rem;
+  line-height: 1.25;
+  margin-bottom: 0.4rem;
+  padding-bottom: 0.4rem;
+  position: relative;
+}
+
+/* Filete decorativo fino bajo el nombre. */
+.heroine-card__body h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 32px;
+  height: 1.5px;
+  background: var(--color-accent);
+  opacity: 0.7;
+}
+
+.heroine-card__dates {
+  font-size: 0.72rem;
+  font-style: italic;
+  color: var(--color-accent-deep);
+  margin-bottom: 0.35rem;
+}
+
+.heroine-card__body p {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--color-text);
+  margin-bottom: 0.7rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+/* ---------- Card de Línea de tiempo integrada en la grilla ---------- */
+/* Ocupa el ancho completo de la última fila de la grilla central y comparte
+   el estilo de las cards de heroínas (borde, sombra, hover, aparición). */
+.heroine-card--timeline {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-md);
+  min-height: 0;
+  padding: var(--space-md) var(--space-lg);
+}
+
+@media (min-width: 1100px) {
+  .heroine-card--timeline {
+    grid-column: 1 / -1;
+  }
+}
+
+.heroine-card--timeline .timeline-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--color-pink-light);
+  font-size: 1.7rem;
+}
+
+.heroine-card--timeline .timeline-card__body {
+  min-width: 0;
+}
+
+.heroine-card--timeline h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+
+.heroine-card--timeline p {
+  font-size: 0.82rem;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.heroine-card--timeline .heroine-card__link {
+  align-self: center;
+}
+
+@media (max-width: 559px) {
+  .heroine-card--timeline {
+    grid-template-columns: auto minmax(0, 1fr);
+    row-gap: var(--space-sm);
+  }
+
+  .heroine-card--timeline .heroine-card__link {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}
+
+.heroine-card__link {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--color-heading);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background-color: var(--color-pink-light);
+  transition: background-color 250ms ease, color 250ms ease;
+}
+
+.heroine-card__link:hover,
+.heroine-card__link:focus-visible {
+  background-color: var(--color-pink);
+  color: var(--color-heading);
+}
+
+/* En móvil angosto: retrato arriba, texto debajo (card vertical). */
+@media (max-width: 559px) {
+  .heroine-card:not(.heroine-card--timeline) {
+    grid-template-columns: 1fr;
+  }
+
+  .heroine-card:not(.heroine-card--timeline) .heroine-card__figure {
+    height: 180px;
+  }
+
+  .heroine-card:not(.heroine-card--timeline) .heroine-card__figure::after {
+    background: linear-gradient(
+      to bottom,
+      transparent 72%,
+      rgba(255, 252, 251, 0.96) 100%
+    );
+  }
+}
+
+/* ---------- Navegación entre heroínas (anterior / todas / siguiente) ---------- */
+.heroine-pagination {
+  display: grid;
+  gap: var(--space-md);
+  padding-block: var(--space-lg) var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .heroine-pagination {
+    grid-template-columns: 1fr auto 1fr;
+    align-items: stretch;
+  }
+}
+
+.heroine-pagination__link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: var(--space-md) var(--space-lg);
+  min-height: 44px;
+  justify-content: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: var(--color-text);
+  transition: transform 300ms var(--ease-elegant), box-shadow 300ms var(--ease-elegant), border-color 300ms var(--ease-elegant);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .heroine-pagination__link:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-soft);
+    border-color: var(--color-pink-muted);
+  }
+}
+
+.heroine-pagination__link--next {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.heroine-pagination__eyebrow {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.heroine-pagination__name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-heading);
+}
+
+.heroine-pagination__link[aria-disabled="true"] {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.heroine-pagination__all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-sm) var(--space-lg);
+  min-height: 44px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.86rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-surface);
+  background-color: var(--color-heading);
+  transition: background-color 300ms var(--ease-elegant), transform 300ms var(--ease-elegant);
+}
+
+.heroine-pagination__all:hover,
+.heroine-pagination__all:focus-visible {
+  background-color: #5c3140;
+  transform: translateY(-2px);
+}
+
+/* ---------- Formas orgánicas de fondo reutilizables ----------
+   Se combinan dos clases: posición (--tl/--tr/--bl/--br) y color
+   (--mauve/--pink/--gold/--rose). Siempre detrás del contenido. */
+.has-blob {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.has-blob::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.07;
+  pointer-events: none;
+}
+
+.has-blob--tl::before { top: -110px; left: -120px; width: 420px; height: 420px; }
+.has-blob--tr::before { top: -110px; right: -100px; width: 420px; height: 420px; }
+.has-blob--bl::before { bottom: -120px; left: -100px; width: 380px; height: 380px; }
+.has-blob--br::before { bottom: -120px; right: -100px; width: 380px; height: 380px; }
+
+.has-blob--mauve::before { background-color: var(--color-mauve); }
+.has-blob--pink::before { background-color: var(--color-pink); }
+.has-blob--gold::before { background-color: var(--color-accent); }
+.has-blob--rose::before { background-color: var(--color-pink-muted); }
+
+/* ---------- Fondos pastel alternos entre secciones ---------- */
+.bg-cream { background-color: var(--color-background); }
+.bg-pink-light { background-color: var(--color-pink-light); }
+.bg-pink { background-color: var(--color-pink); }
+.bg-lavender { background-color: var(--color-lavender); }
+.bg-beige { background-color: var(--color-beige); }
+
+/* ---------- Utilidad de alineación ---------- */
+.text-center { text-align: center; }
+.mx-auto { margin-inline: auto; }
+
+/* Separador superior para un breadcrumb que abre una página (sin hero) */
+.breadcrumb-bar {
+  padding-top: var(--space-lg);
+  margin-bottom: 0;
+}
+
+/* =========================================================
+   Reflexión final
+   ========================================================= */
+.reflection {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--color-lavender);
+  padding: var(--space-xl) var(--space-md);
+  text-align: center;
+}
+
+.reflection::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  bottom: -160px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background-color: var(--color-pink-muted);
+  filter: blur(80px);
+  opacity: 0.07;
+  pointer-events: none;
+}
+
+.reflection__content {
+  max-width: 70ch;
+  margin-inline: auto;
+}
+
+.reflection__highlight {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-style: italic;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  color: var(--color-heading);
+  margin-top: var(--space-md);
+}
+
+/* =========================================================
+   Línea de tiempo
+   ========================================================= */
+.timeline-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: var(--space-xl) 0;
+  max-width: var(--container-width);
+  margin-inline: auto;
+}
+
+.timeline-section h1,
+.timeline-section h2 {
+  position: relative;
+  text-align: center;
+  margin-bottom: var(--space-lg);
+  padding-inline: var(--space-md);
+  padding-bottom: var(--space-sm);
+}
+
+/* Línea decorativa que "se dibuja" de izquierda a derecha al entrar en el viewport
+   (el título de la sección puede ser h1 en la página exclusiva de la línea de
+   tiempo, o h2 dentro de cada página de heroína). */
+.timeline-section h1::after,
+.timeline-section h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-left: -60px;
+  width: 120px;
+  height: 3px;
+  background-color: var(--color-accent);
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* Sin JavaScript (o con animaciones reducidas) la línea queda visible de inmediato;
+   la clase "reveal-timeline" solo la agrega el script cuando puede animarla. */
+.timeline-section.reveal-timeline h1::after,
+.timeline-section.reveal-timeline h2::after {
+  transform: scaleX(0);
+  transition: transform 900ms var(--ease-elegant);
+}
+
+.timeline-section.reveal-timeline.is-visible h1::after,
+.timeline-section.reveal-timeline.is-visible h2::after {
+  transform: scaleX(1);
+}
+
+/* Tira horizontal deslizable de tarjetas pequeñas */
+.timeline {
+  list-style: none;
+  display: flex;
+  gap: var(--space-md);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--space-md);
+  padding: var(--space-xs) var(--space-md) var(--space-md);
+  -webkit-overflow-scrolling: touch;
+}
+
+.timeline:focus-visible {
+  outline: 3px solid var(--color-heading);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Barra de desplazamiento discreta (navegadores basados en WebKit/Blink) */
+.timeline::-webkit-scrollbar {
+  height: 8px;
+}
+
+.timeline::-webkit-scrollbar-track {
+  background: var(--color-pink-light);
+  border-radius: 999px;
+}
+
+.timeline::-webkit-scrollbar-thumb {
+  background: var(--color-pink-muted);
+  border-radius: 999px;
+}
+
+.timeline__item {
+  position: relative;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  width: 190px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-hairline);
+  border-top: 3px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-sm) var(--space-md);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Punto que marca cada evento sobre la tarjeta */
+.timeline__item::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background-color: var(--color-heading);
+  border: 2px solid var(--color-background);
+}
+
+.timeline__year {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--color-heading);
+  margin-bottom: 0.35rem;
+}
+
+.timeline__item p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+/* ---------- Eventos que aparecen uno por uno (clase añadida por JS) ---------- */
+.timeline-section.reveal-timeline .timeline__item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.timeline-section.reveal-timeline .timeline__item::before {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.timeline-section.reveal-timeline.is-visible .timeline__item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timeline-section.reveal-timeline.is-visible .timeline__item::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.timeline__item:nth-child(1),
+.timeline__item:nth-child(1)::before { transition-delay: 0ms; }
+.timeline__item:nth-child(2),
+.timeline__item:nth-child(2)::before { transition-delay: 70ms; }
+.timeline__item:nth-child(3),
+.timeline__item:nth-child(3)::before { transition-delay: 140ms; }
+.timeline__item:nth-child(4),
+.timeline__item:nth-child(4)::before { transition-delay: 210ms; }
+.timeline__item:nth-child(5),
+.timeline__item:nth-child(5)::before { transition-delay: 280ms; }
+.timeline__item:nth-child(6),
+.timeline__item:nth-child(6)::before { transition-delay: 350ms; }
+.timeline__item:nth-child(7),
+.timeline__item:nth-child(7)::before { transition-delay: 420ms; }
+.timeline__item:nth-child(8),
+.timeline__item:nth-child(8)::before { transition-delay: 490ms; }
+
+@media (min-width: 640px) {
+  .timeline__item {
+    width: 210px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .timeline {
+    gap: var(--space-lg);
+  }
+
+  .timeline__item {
+    width: 225px;
+  }
+}
+
+/* =========================================================
+   Animaciones de aparición
+   ========================================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .info-grid.reveal-stagger .info-card,
+  .logros-grid.reveal-stagger .info-card,
+  .heroine-cards.reveal-stagger .heroine-card,
+  .timeline-section.reveal-timeline h1::after,
+  .timeline-section.reveal-timeline h2::after,
+  .timeline-section.reveal-timeline .timeline__item,
+  .timeline-section.reveal-timeline .timeline__item::before {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* =========================================================
+   Portada (página de carátula, index.html)
+   ========================================================= */
+.cover {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+}
+
+.cover__logo {
+  width: 120px;
+  height: auto;
+  margin-bottom: var(--space-md);
+}
+
+.cover .hero__title,
+.cover .hero__subtitle {
+  max-width: 46ch;
+}
+
+.cover .hero__subtitle {
+  margin-bottom: var(--space-lg);
+}
+
+.cover__meta {
+  width: 100%;
+  max-width: 380px;
+  margin-bottom: var(--space-lg);
+}
+
+.cover__meta h2 {
+  font-size: 1.05rem;
+  margin-bottom: var(--space-sm);
+}
+
+.cover__meta dl {
+  margin: 0;
+}
+
+.cover__meta-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.cover__meta-row:last-child {
+  border-bottom: none;
+}
+
+.cover__meta-row dt {
+  font-weight: 600;
+  color: var(--color-heading);
+  font-size: 0.92rem;
+}
+
+.cover__meta-row dd {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 0.92rem;
+  text-align: right;
+}
+
+/* Variante de card de índice sin fotografía (Introducción, Línea de tiempo):
+   reutiliza .heroine-card con un ícono en lugar de imagen. */
+.heroine-card__figure--icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4.5rem;
+  background-image: radial-gradient(circle at 50% 38%, var(--color-pink-light), var(--color-lavender));
+}
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.site-footer {
+  background-color: var(--color-heading);
+  color: var(--color-surface);
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+}
+
+.site-footer h2 {
+  color: var(--color-surface);
+  font-size: 1.4rem;
+}
+
+.site-footer p {
+  color: rgba(255, 252, 251, 0.85);
+}
+
+.site-footer__meta a {
+  color: var(--color-pink-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.site-footer__meta a:hover,
+.site-footer__meta a:focus-visible {
+  color: var(--color-surface);
+}
