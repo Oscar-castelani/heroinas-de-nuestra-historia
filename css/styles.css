@@ -2697,10 +2697,13 @@ button:focus-visible {
   background-color: var(--color-pink);
 }
 
-/* Botón "Volver a Juegos" que acompaña al breadcrumb, en la parte
-   superior de cada juego individual. */
-.game-back {
-  margin: var(--space-sm) auto var(--space-xl);
+/* Páginas de juegos: al no tener hero ni breadcrumb antes del
+   contenido, la primera sección queda pegada al header. Se reduce su
+   padding superior a un margen elegante en vez del espaciado completo
+   entre secciones (var(--space-2xl), pensado para separar secciones
+   intermedias, no para abrir una página). */
+#contenido > .content-section:first-child {
+  padding-top: 48px;
 }
 
 /* =========================================================
