@@ -683,7 +683,8 @@ button:focus-visible {
   background-color: var(--color-pink-light);
 }
 
-.heroine__figure figcaption {
+.heroine__figure figcaption,
+.map-figure figcaption {
   text-align: center;
   font-size: 0.76rem;
   letter-spacing: 0.03em;
@@ -1037,6 +1038,13 @@ button:focus-visible {
     grid-template-columns: 1fr 48%;
     gap: var(--space-2xl);
   }
+
+  /* Variante para la "Presentación" de cada heroína: texto (55 %) junto a
+     un mapa de referencia geográfica (45 %). */
+  .intro-split--map {
+    grid-template-columns: 55% 1fr;
+    gap: var(--space-2xl);
+  }
 }
 
 .intro-figure {
@@ -1059,6 +1067,26 @@ button:focus-visible {
 
 .intro-split__text {
   min-width: 0;
+}
+
+/* ---------- Mapa de referencia geográfica (sección "Presentación") ----------
+   Componente único, reutilizado tal cual en cada heroína (Juana Azurduy,
+   Manuela Sáenz, etc.) dentro de .intro-split--map: mismo radio, borde
+   rosado tenue, sombra suave y fondo cálido que el resto de las láminas
+   del sitio. Sin aspect-ratio forzado: conserva siempre la proporción
+   original del mapa, sin recortarlo ni deformarlo. */
+.map-figure {
+  margin: 0;
+}
+
+.map-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  border: 1px solid rgba(217, 166, 179, 0.35);
+  box-shadow: 0 10px 30px rgba(111, 61, 75, 0.08);
+  background-color: var(--color-surface);
 }
 
 .content-section h2 {
