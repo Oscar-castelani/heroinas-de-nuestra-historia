@@ -931,6 +931,10 @@ button:focus-visible {
   line-height: 1;
 }
 
+.quote::after {
+  content: "\201D";
+}
+
 /* =========================================================
    Componentes reutilizables: etiquetas, breadcrumb, secciones
    ========================================================= */
@@ -1094,24 +1098,6 @@ button:focus-visible {
   gap: 0.75rem;
   font-size: clamp(1.7rem, 3vw, 2.3rem);
   margin-bottom: var(--space-lg);
-}
-
-/* Pequeño filete ornamental bajo el ícono de cada título de sección, en el
-   espíritu de un manuscrito iluminado: discreto, nunca protagonista. */
-.content-section h2 .info-card__icon {
-  position: relative;
-}
-
-.content-section h2 .info-card__icon::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -0.85rem;
-  transform: translateX(-50%);
-  width: 22px;
-  height: 2px;
-  background-color: var(--color-accent);
-  opacity: 0.6;
 }
 
 /* Botón secundario, discreto (p. ej. "Volver a todas las heroínas") */
