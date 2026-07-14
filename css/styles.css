@@ -2713,6 +2713,12 @@ button:focus-visible {
   background: radial-gradient(circle at 50% 35%, var(--color-pink-light), var(--color-accent) 160%);
 }
 
+/* Cuarta variante de color para la card de nivel superior "Desafío
+   Final", dentro de la misma paleta cálida del sitio. */
+.game-card--beige .game-card__icon {
+  background: radial-gradient(circle at 50% 35%, var(--color-beige), var(--color-pink-muted) 150%);
+}
+
 .mode-card {
   width: 100%;
   cursor: pointer;
@@ -2967,4 +2973,499 @@ button:focus-visible {
 
 .memo-result-stats strong {
   color: var(--color-heading);
+}
+
+/* =========================================================
+   Juegos — "Desafío Final" (cuarto juego)
+   Reutiliza tokens, .tag, .btn, .quiz__status, .quiz__feedback
+   (con sus variantes --correct/--incorrect) y .quiz__results,
+   igual que los tres juegos anteriores.
+   ========================================================= */
+.df {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.df__intro {
+  text-align: center;
+}
+
+.df__intro h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: var(--space-sm);
+}
+
+.df__intro-topics {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: var(--space-md) 0 var(--space-lg);
+  padding: 0;
+}
+
+.df__intro-topics li {
+  background-color: var(--color-pink-light);
+  color: var(--color-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+}
+
+/* Barra de progreso */
+.df-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.df-progress {
+  flex: 1;
+  height: 12px;
+  background-color: var(--color-pink-light);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.df-progress__bar {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background-color: var(--color-heading);
+  border-radius: 999px;
+  transition: width 400ms var(--ease-elegant);
+}
+
+.df-progress__label {
+  min-width: 3.4em;
+  text-align: right;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-accent-deep);
+}
+
+/* Transición suave entre preguntas */
+#dfQuestion {
+  transition: opacity 220ms var(--ease-elegant);
+}
+
+#dfQuestion.is-changing {
+  opacity: 0;
+}
+
+.df__question-text {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 700;
+  font-size: clamp(1.15rem, 2.6vw, 1.4rem);
+  line-height: 1.5;
+  color: var(--color-heading);
+  margin-bottom: var(--space-lg);
+}
+
+.df__options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.df-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.85rem 1.1rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-heading);
+  cursor: pointer;
+  appearance: none;
+  transition: box-shadow 250ms var(--ease-elegant), border-color 250ms var(--ease-elegant),
+    background-color 250ms var(--ease-elegant);
+}
+
+.df-option:hover,
+.df-option:focus-visible {
+  box-shadow: var(--shadow-hover);
+  border-color: var(--color-pink-muted);
+}
+
+.df-option:focus-visible {
+  outline: 3px solid var(--color-heading);
+  outline-offset: 2px;
+}
+
+.df-option:disabled {
+  cursor: default;
+}
+
+.df-option.is-correct {
+  background-color: #E9F5E8;
+  border-color: #AED9A8;
+  color: #2E6B32;
+}
+
+.df-option.is-correct::after {
+  content: ' \2714';
+}
+
+.df-option.is-incorrect {
+  background-color: #FBEAEA;
+  border-color: #E3ABAB;
+  color: #8C2F2F;
+}
+
+.df-option.is-incorrect::after {
+  content: ' \2718';
+}
+
+/* Medalla final: ícono grande sobre una insignia circular con color
+   propio por nivel, y una aparición suave (opacity + scale). */
+.df-medal {
+  text-align: center;
+  margin-bottom: var(--space-md);
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 400ms var(--ease-elegant), transform 400ms var(--ease-elegant);
+}
+
+.df-medal.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.df-medal__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto var(--space-sm);
+  border-radius: 50%;
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.df-medal--gold .df-medal__icon {
+  background: radial-gradient(circle at 50% 35%, #fff6da, #f2d98a 140%);
+}
+
+.df-medal--silver .df-medal__icon {
+  background: radial-gradient(circle at 50% 35%, #f5f6f7, #d9dce1 140%);
+}
+
+.df-medal--bronze .df-medal__icon {
+  background: radial-gradient(circle at 50% 35%, #f8e8da, #dda878 140%);
+}
+
+.df-medal--learning .df-medal__icon {
+  background: radial-gradient(circle at 50% 35%, var(--color-pink-light), var(--color-lavender) 140%);
+}
+
+.df-medal__name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.df-medal--gold .df-medal__name { color: #8a6d1d; }
+.df-medal--silver .df-medal__name { color: #6b6f76; }
+.df-medal--bronze .df-medal__name { color: #8a5a34; }
+.df-medal--learning .df-medal__name { color: var(--color-heading); }
+
+.df-result-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
+}
+
+.df-result-stats strong {
+  color: var(--color-heading);
+}
+
+@media (max-width: 480px) {
+  .df__options {
+    gap: var(--space-xs);
+  }
+
+  .df-option {
+    padding: 0.75rem 0.9rem;
+    font-size: 0.92rem;
+  }
+}
+
+/* Quinta variante de color para la card de nivel superior "Verdadero o
+   Falso", dentro de la misma paleta cálida del sitio. */
+.game-card--mauve .game-card__icon {
+  background: radial-gradient(circle at 50% 35%, var(--color-mauve), var(--color-pink-muted) 150%);
+}
+
+/* =========================================================
+   Juegos — "Verdadero o Falso" (quinto juego)
+   Reutiliza .df / .df__intro / .df__intro-topics / .df__question-text /
+   .df-progress* / .quiz__status / .quiz__feedback (con sus variantes
+   --correct/--incorrect) / .quiz__results / .df-result-stats de los
+   juegos anteriores. Lo único nuevo son los dos botones grandes
+   Verdadero/Falso.
+   ========================================================= */
+.vf-choices {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+@media (max-width: 560px) {
+  .vf-choices {
+    flex-direction: column;
+  }
+}
+
+.vf-choice {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+  padding: 1rem 1.5rem;
+  border-radius: 999px;
+  border: 2px solid var(--color-hairline);
+  background-color: var(--color-surface);
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-heading);
+  cursor: pointer;
+  appearance: none;
+  box-shadow: var(--shadow-soft);
+  transition: transform 200ms var(--ease-elegant), box-shadow 250ms var(--ease-elegant),
+    border-color 250ms var(--ease-elegant), background-color 250ms var(--ease-elegant);
+}
+
+.vf-choice--true {
+  background-color: #F1F8F0;
+  border-color: #cfe8cb;
+}
+
+.vf-choice--false {
+  background-color: #FCF1F1;
+  border-color: #f0d3d3;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .vf-choice:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+  .vf-choice:hover:not(:disabled) {
+    transform: none;
+  }
+}
+
+.vf-choice:focus-visible {
+  outline: 3px solid var(--color-heading);
+  outline-offset: 3px;
+}
+
+.vf-choice:disabled {
+  cursor: default;
+}
+
+/* Estado tras responder: además del color, se agrega el ícono ✓/✕ para
+   no depender únicamente del color. */
+.vf-choice.is-correct {
+  background-color: #E9F5E8;
+  border-color: #AED9A8;
+  color: #2E6B32;
+}
+
+.vf-choice.is-correct::after {
+  content: ' \2714';
+}
+
+.vf-choice.is-incorrect {
+  background-color: #FBEAEA;
+  border-color: #E3ABAB;
+  color: #8C2F2F;
+}
+
+.vf-choice.is-incorrect::after {
+  content: ' \2718';
+}
+
+/* Transición suave entre afirmaciones (todo el bloque: afirmación,
+   botones y retroalimentación) */
+#vfQuestion {
+  transition: opacity 220ms var(--ease-elegant);
+}
+
+#vfQuestion.is-changing {
+  opacity: 0;
+}
+
+/* Sexta variante de color para la card de nivel superior "El Detective
+   Histórico": un vignette color papel envejecido, dentro de la misma
+   paleta cálida del sitio. */
+.game-card--sepia .game-card__icon {
+  background: radial-gradient(circle at 50% 35%, var(--color-surface), var(--color-beige) 160%);
+}
+
+/* =========================================================
+   Juegos — "El Detective Histórico" (sexto juego)
+   Reutiliza .df / .df__intro / .quiz__status / .tag / .btn /
+   .quiz__options + .quiz-card (tarjetas de sospechosas, igual que
+   "¿Quién soy?") / .quiz__feedback (con sus variantes) /
+   .quiz__results / .df-medal (con nuevos niveles propios), sin
+   modificar ninguna de esas reglas existentes.
+   ========================================================= */
+
+/* "Expediente": tarjeta con textura de papel envejecido, sello y
+   líneas finas bajo cada pista, con apertura suave. */
+.detective-file {
+  position: relative;
+  background: linear-gradient(155deg, var(--color-surface) 0%, var(--color-beige) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  opacity: 0;
+  transform: translateY(10px) scale(0.99);
+  transition: opacity 450ms var(--ease-elegant), transform 450ms var(--ease-elegant);
+}
+
+.detective-file.is-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.detective-file__stamp {
+  position: absolute;
+  top: -16px;
+  right: 20px;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--color-pink-light);
+  border: 2px dashed var(--color-pink-muted);
+  color: var(--color-heading);
+  font-size: 1.4rem;
+  transform: rotate(-8deg);
+  box-shadow: var(--shadow-soft);
+}
+
+.detective-file__title {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--color-heading);
+  margin-bottom: var(--space-md);
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--color-accent);
+}
+
+.detective-file__clues {
+  list-style: none;
+  margin: 0 0 var(--space-md);
+  padding: 0;
+}
+
+.detective-file__clues li {
+  padding: 0.65rem 0;
+  border-bottom: 1px dashed var(--color-hairline);
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(1rem, 2.2vw, 1.1rem);
+  line-height: 1.55;
+  color: var(--color-heading);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 400ms var(--ease-elegant), transform 400ms var(--ease-elegant);
+}
+
+.detective-file__clues li.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.detective-file__clues li:last-child {
+  border-bottom: none;
+}
+
+.detective-file__clues li strong {
+  color: var(--color-accent-deep);
+  font-weight: 700;
+}
+
+.detective-file__actions {
+  display: flex;
+  justify-content: center;
+}
+
+/* Tarjetas de sospechosas: mismo componente que "¿Quién soy?"
+   (.quiz__options + .quiz-card), con un estado propio de acierto/error
+   en verde/rojo pastel (sin tocar el .is-correct/.is-incorrect dorado
+   que ya usa "¿Quién soy?"). */
+.quiz-card.is-case-correct {
+  border-color: #AED9A8;
+  background-color: #E9F5E8;
+}
+
+.quiz-card.is-case-correct .quiz-card__name {
+  color: #2E6B32;
+}
+
+.quiz-card.is-case-correct .quiz-card__name::after {
+  content: ' \2714';
+}
+
+.quiz-card.is-case-incorrect {
+  border-color: #E3ABAB;
+  background-color: #FBEAEA;
+}
+
+.quiz-card.is-case-incorrect .quiz-card__name {
+  color: #8C2F2F;
+}
+
+.quiz-card.is-case-incorrect .quiz-card__name::after {
+  content: ' \2718';
+}
+
+/* Niveles de clasificación final propios (además de gold/silver/bronze/
+   learning ya usados por "Desafío Final"). */
+.df-medal--expert .df-medal__icon {
+  background: radial-gradient(circle at 50% 35%, var(--color-pink-light), var(--color-accent) 150%);
+}
+
+.df-medal--advanced .df-medal__icon {
+  background: radial-gradient(circle at 50% 35%, var(--color-lavender), var(--color-mauve) 150%);
+}
+
+.df-medal--training .df-medal__icon {
+  background: radial-gradient(circle at 50% 35%, var(--color-beige), var(--color-pink-muted) 150%);
+}
+
+.df-medal--apprentice .df-medal__icon {
+  background: radial-gradient(circle at 50% 35%, var(--color-pink-light), var(--color-lavender) 150%);
 }
