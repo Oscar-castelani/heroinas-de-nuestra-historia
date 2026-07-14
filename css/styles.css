@@ -1246,185 +1246,17 @@ button:focus-visible {
 }
 
 /* =========================================================
-   Índice: layout de tres columnas (Introducción / Heroínas / Tu recorrido)
+   Índice: grilla de heroínas, centrada
    ========================================================= */
-.recorrido-container {
-  width: 100%;
-  max-width: 1480px;
-  margin-inline: auto;
-  padding-inline: var(--space-lg);
-}
-
-.recorrido-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-lg);
-  align-items: stretch;
-}
-
-/* Evita que cualquier columna interna (grilla de heroínas, textos largos)
-   fuerce a la grilla a crecer más allá del contenedor y provoque scroll
-   horizontal. */
-.recorrido-grid > * {
-  min-width: 0;
-}
-
-@media (min-width: 1100px) {
-  .recorrido-grid {
-    grid-template-columns:
-      minmax(200px, 220px)
-      minmax(0, 1fr)
-      minmax(180px, 210px);
-    gap: 24px;
-  }
-}
-
-/* ---------- Columna izquierda: card de Introducción ---------- */
-.intro-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
-  height: 100%;
-  padding: var(--space-lg) var(--space-md);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-pink-muted);
-  border-color: rgba(217, 166, 179, 0.35);
-  border-radius: 18px;
-  box-shadow: var(--shadow-soft);
-}
-
-.intro-card__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 84px;
-  height: 84px;
-  margin-bottom: var(--space-lg);
-  border-radius: 50%;
-  background-color: var(--color-pink-light);
-  font-size: 2.4rem;
-}
-
-.intro-card h2 {
-  font-size: 1.4rem;
-  margin-bottom: var(--space-sm);
-}
-
-.intro-card p {
-  font-size: 0.92rem;
-  line-height: 1.6;
-  color: var(--color-text);
-  margin-bottom: var(--space-lg);
-}
-
-.intro-card .btn {
-  margin-top: auto;
-}
-
-/* ---------- Columna derecha: "Tu recorrido" ---------- */
-.toc-card {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 420px;
-  padding: 24px;
-  background-color: var(--color-pink-light);
-  background-image: linear-gradient(180deg, #FCEFF3 0%, var(--color-pink-light) 100%);
-  border: 1px solid rgba(217, 166, 179, 0.35);
-  border-radius: 18px;
-  box-shadow: var(--shadow-soft);
-}
-
-.toc-card h2 {
-  font-size: 1.15rem;
-  margin-bottom: var(--space-md);
-}
-
-/* Lista con forma de recorrido: una línea vertical continua uniendo los
-   puntos rosados de cada etapa. */
-.toc-card ol {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin: 0;
-  position: relative;
-  z-index: 1;
-}
-
-.toc-card ol::before {
-  content: "";
-  position: absolute;
-  left: 6px;
-  top: 8px;
-  bottom: 8px;
-  width: 1.5px;
-  background: rgba(210, 132, 151, 0.45);
-}
-
-.toc-card li {
-  position: relative;
-  padding-left: 24px;
-  font-size: 0.84rem;
-  line-height: 1.35;
-}
-
-.toc-card li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.45em;
-  width: 10px;
-  height: 10px;
-  border: 2px solid var(--color-pink-muted);
-  border-radius: 50%;
-  background: var(--color-surface);
-  transition: background-color 200ms ease, border-color 200ms ease;
-}
-
-.toc-card a {
-  display: inline-block;
-  color: var(--color-text);
-  text-decoration: none;
-  border-bottom: 1px dashed transparent;
-  transition: color 200ms ease, border-color 200ms ease;
-}
-
-.toc-card a:hover,
-.toc-card a:focus-visible {
-  color: var(--color-heading);
-  border-color: var(--color-pink-muted);
-}
-
-/* Etapa activa: punto relleno y texto en bordó con más peso. */
-.toc-card li:has(a[aria-current="page"])::before {
-  background: var(--color-pink-muted);
-  border-color: var(--color-heading);
-}
-
-.toc-card a[aria-current="page"] {
-  color: var(--color-heading);
-  font-weight: 700;
-}
-
-.toc-card__illustration {
-  margin-top: auto;
-  padding-top: var(--space-md);
-  opacity: 0.18;
-  filter: saturate(0.6);
-  pointer-events: none;
-}
-
-/* ---------- Columna central: cards de heroínas, horizontales ---------- */
+/* min() asegura que nunca exceda el ancho disponible (sin overflow),
+   y acota el máximo a 1120px para que la grilla no quede demasiado
+   estirada en pantallas grandes ahora que ocupa todo el ancho central. */
 .heroine-cards {
   display: grid;
   grid-template-columns: 1fr;
   gap: 18px;
+  width: min(100%, 1120px);
+  margin-inline: auto;
 }
 
 @media (min-width: 560px) {
@@ -1437,6 +1269,27 @@ button:focus-visible {
   .heroine-cards {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+}
+
+/* Acerca la grilla al texto de bienvenida y evita el hueco vacío debajo
+   de la segunda fila de cards. .content-section fija 120px (var(--space-2xl))
+   arriba y abajo por defecto, pensado para separar secciones intermedias;
+   aquí se reduce puntualmente en estas dos secciones (sin tocar la regla
+   general que usa el resto del sitio). */
+#bienvenidos {
+  padding-bottom: 24px;
+}
+
+#bienvenidos .content-section__intro {
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  line-height: 1.7;
+  max-width: 760px;
+  margin-bottom: 0;
+}
+
+#heroinas {
+  padding-top: 24px;
+  padding-bottom: 64px;
 }
 
 .heroine-card {
@@ -1512,8 +1365,8 @@ button:focus-visible {
 }
 
 .heroine-card__body h3 {
-  font-size: 1rem;
-  line-height: 1.25;
+  font-size: 1.2rem;
+  line-height: 1.3;
   margin-bottom: 0.4rem;
   padding-bottom: 0.4rem;
   position: relative;
@@ -1532,15 +1385,15 @@ button:focus-visible {
 }
 
 .heroine-card__dates {
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   font-style: italic;
   color: var(--color-accent-deep);
   margin-bottom: 0.35rem;
 }
 
-.heroine-card__body p {
-  font-size: 0.78rem;
-  line-height: 1.45;
+.heroine-card__body p:not(.heroine-card__dates) {
+  font-size: 0.95rem;
+  line-height: 1.5;
   color: var(--color-text);
   margin-bottom: 0.7rem;
   display: -webkit-box;
@@ -3483,4 +3336,28 @@ button:focus-visible {
 
 .df-medal--apprentice .df-medal__icon {
   background: radial-gradient(circle at 50% 35%, var(--color-pink-light), var(--color-lavender) 150%);
+}
+
+/* =========================================================
+   Encabezado centrado de las páginas de juegos: título y
+   descripción sin ícono, a modo de pequeño "hero" del juego.
+   Solo se aplica dentro de .game-header, sin tocar el estilo con
+   ícono de .content-section h2 ni el margen por defecto de
+   .content-section__intro que usa el resto del sitio.
+   ========================================================= */
+.game-header {
+  max-width: 750px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.game-header h2 {
+  display: block;
+  margin-bottom: 24px;
+}
+
+.game-header .content-section__intro {
+  max-width: 700px;
+  margin-inline: auto;
+  margin-bottom: 0;
 }
