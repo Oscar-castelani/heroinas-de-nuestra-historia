@@ -901,7 +901,6 @@ button:focus-visible {
 
 .heroine-cards.reveal-stagger .heroine-card:nth-child(5) { transition-delay: 360ms; }
 .heroine-cards.reveal-stagger .heroine-card:nth-child(6) { transition-delay: 450ms; }
-.heroine-cards.reveal-stagger .heroine-card:nth-child(7) { transition-delay: 540ms; }
 
 /* ---------- Frase destacada ---------- */
 /* Cita editorial: sin caja ni relleno de color, apenas un filete dorado
@@ -1539,65 +1538,6 @@ button:focus-visible {
   overflow: hidden;
 }
 
-/* ---------- Card de Línea de tiempo integrada en la grilla ---------- */
-/* Ocupa el ancho completo de la última fila de la grilla central y comparte
-   el estilo de las cards de heroínas (borde, sombra, hover, aparición). */
-.heroine-card--timeline {
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: var(--space-md);
-  min-height: 0;
-  padding: var(--space-md) var(--space-lg);
-}
-
-@media (min-width: 1100px) {
-  .heroine-card--timeline {
-    grid-column: 1 / -1;
-  }
-}
-
-.heroine-card--timeline .timeline-card__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: var(--color-pink-light);
-  font-size: 1.7rem;
-}
-
-.heroine-card--timeline .timeline-card__body {
-  min-width: 0;
-}
-
-.heroine-card--timeline h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.2rem;
-}
-
-.heroine-card--timeline p {
-  font-size: 0.82rem;
-  color: var(--color-text);
-  margin: 0;
-}
-
-.heroine-card--timeline .heroine-card__link {
-  align-self: center;
-}
-
-@media (max-width: 559px) {
-  .heroine-card--timeline {
-    grid-template-columns: auto minmax(0, 1fr);
-    row-gap: var(--space-sm);
-  }
-
-  .heroine-card--timeline .heroine-card__link {
-    grid-column: 1 / -1;
-    justify-self: start;
-  }
-}
-
 .heroine-card__link {
   align-self: flex-start;
   display: inline-flex;
@@ -1623,15 +1563,15 @@ button:focus-visible {
 
 /* En móvil angosto: retrato arriba, texto debajo (card vertical). */
 @media (max-width: 559px) {
-  .heroine-card:not(.heroine-card--timeline) {
+  .heroine-card {
     grid-template-columns: 1fr;
   }
 
-  .heroine-card:not(.heroine-card--timeline) .heroine-card__figure {
+  .heroine-card .heroine-card__figure {
     height: 180px;
   }
 
-  .heroine-card:not(.heroine-card--timeline) .heroine-card__figure::after {
+  .heroine-card .heroine-card__figure::after {
     background: linear-gradient(
       to bottom,
       transparent 72%,
