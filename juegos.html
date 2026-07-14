@@ -118,6 +118,54 @@
       </div>
     </section>
 
+    <!-- Juego 2: Relacionar -->
+    <section id="relacionar" class="content-section bg-pink-light has-blob has-blob--bl has-blob--mauve">
+      <div class="container">
+        <h2><span class="info-card__icon" aria-hidden="true">🧩</span> Relacionar</h2>
+        <p class="content-section__intro">
+          Uní cada heroína con el dato correcto: arrastrá su tarjeta hasta la opción que corresponda, o
+          si preferís, tocá primero la tarjeta y después la opción. Son tres rondas con temas distintos.
+        </p>
+
+        <div class="match" id="match">
+
+          <!-- Ronda en curso -->
+          <div class="match__game" id="matchGame">
+            <div class="quiz__status" aria-live="polite">
+              <span class="tag">Ronda <strong id="matchRound">1</strong> de <strong id="matchRoundTotal">3</strong></span>
+              <span class="tag tag--gold">Aciertos: <strong id="matchScore">0</strong></span>
+              <span class="tag">Relaciones restantes: <strong id="matchRemaining">6</strong></span>
+            </div>
+
+            <p class="match__round-title" id="matchRoundTitle"></p>
+
+            <div class="match__board" id="matchBoard">
+              <div class="match__column match__column--heroines" id="matchHeroines" aria-label="Heroínas"></div>
+              <div class="match__column match__column--options" id="matchOptions" aria-label="Opciones de la ronda"></div>
+            </div>
+
+            <div class="match__round-complete" id="matchRoundComplete" hidden>
+              <p class="match__round-complete-text">¡Ronda completa! 🎉</p>
+              <button class="btn btn--primary" id="matchNextRoundBtn" type="button">Siguiente ronda →</button>
+            </div>
+          </div>
+
+          <!-- Pantalla de resultados -->
+          <div class="quiz__results" id="matchResults" tabindex="-1" hidden>
+            <p class="quiz__stars" id="matchStars" aria-hidden="true"></p>
+            <h3>Obtuviste <span id="matchResultScore">0</span> de <span id="matchResultTotal">18</span> relaciones correctas.</h3>
+            <p class="quiz__result-message" id="matchResultMessage"></p>
+            <div class="quiz__result-actions">
+              <button class="btn btn--primary" id="matchReplayBtn" type="button">Volver a jugar</button>
+              <a class="btn btn--secondary" href="indice.html">Volver a Heroínas</a>
+            </div>
+          </div>
+
+          <div id="matchAnnouncer" class="sr-only" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer class="site-footer">
@@ -134,5 +182,6 @@
 
   <script src="js/script.js"></script>
   <script src="js/juegos.js"></script>
+  <script src="js/relacionar.js"></script>
 </body>
 </html>

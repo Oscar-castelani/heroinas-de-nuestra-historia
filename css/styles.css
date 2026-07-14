@@ -236,6 +236,19 @@ main section[id] {
   top: var(--space-sm);
 }
 
+/* Contenido solo para lectores de pantalla (anuncios de estado). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ---------- Foco visible general ---------- */
 a:focus-visible,
 button:focus-visible {
@@ -2084,9 +2097,10 @@ button:focus-visible {
   opacity: 0;
 }
 
-/* Pista histórica: mismo lenguaje visual que .quote (filete dorado,
-   tipografía editorial), en una tarjeta propia para distinguirla de la
-   cita final de cada heroína. */
+/* Pista histórica: mismo filete dorado que .quote, pero con la tipografía
+   de párrafo del sitio (sin cursiva ni efecto manuscrito) para que sea
+   fácilmente legible por alumnos de 4.º grado. Se sigue destacando por
+   tamaño, peso y color, no por el estilo de la letra. */
 .quiz__clue {
   margin: 0 0 var(--space-lg);
   padding: var(--space-md) var(--space-lg);
@@ -2094,11 +2108,11 @@ button:focus-visible {
   background-color: var(--color-surface);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
-  font-family: var(--font-heading);
-  font-style: italic;
-  font-weight: 600;
-  font-size: clamp(1.1rem, 2.2vw, 1.35rem);
-  line-height: 1.55;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+  line-height: 1.65;
   color: var(--color-heading);
 }
 
@@ -2216,12 +2230,26 @@ button:focus-visible {
   content: " \2718";
 }
 
-/* Retroalimentación tras responder */
+/* Retroalimentación tras responder: variantes en verde/rojo pastel, los
+   colores convencionales que los alumnos ya asocian a acierto y error.
+   El texto de la explicación conserva el color de párrafo habitual del
+   sitio en ambos casos. */
 .quiz__feedback {
   padding: var(--space-md) var(--space-lg);
   background-color: var(--color-pink-light);
+  border: 1px solid transparent;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
+}
+
+.quiz__feedback--correct {
+  background-color: #E9F5E8;
+  border-color: #AED9A8;
+}
+
+.quiz__feedback--incorrect {
+  background-color: #FBEAEA;
+  border-color: #E3ABAB;
 }
 
 .quiz__feedback-title {
@@ -2230,6 +2258,14 @@ button:focus-visible {
   font-size: 1.15rem;
   color: var(--color-heading);
   margin-bottom: 0.35rem;
+}
+
+.quiz__feedback--correct .quiz__feedback-title {
+  color: #2E6B32;
+}
+
+.quiz__feedback--incorrect .quiz__feedback-title {
+  color: #8C2F2F;
 }
 
 .quiz__feedback-text {
@@ -2262,4 +2298,244 @@ button:focus-visible {
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--space-sm);
+}
+
+/* =========================================================
+   Juegos — "Relacionar" (segundo juego)
+   Reutiliza los mismos tokens (--color-*, --radius-*, --shadow-*,
+   --space-*, --ease-elegant), el mismo botón y el mismo panel de
+   resultados (.quiz__results) que "¿Quién soy?", sin modificar
+   ninguna de sus reglas. El único material nuevo es la tarjeta de
+   heroína en formato compacto (fila) y la opción de texto, ambas
+   con la misma superficie/borde/sombra que el resto del sitio.
+   ========================================================= */
+.match {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.match__round-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(1.05rem, 2.3vw, 1.25rem);
+  line-height: 1.5;
+  color: var(--color-heading);
+  margin-bottom: var(--space-lg);
+}
+
+.match__board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+@media (min-width: 700px) {
+  .match__board {
+    gap: var(--space-xl);
+  }
+}
+
+.match__column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Tarjeta de heroína compacta y horizontal para la lista vertical de la
+   columna izquierda: mismo material que .quiz-card (fondo, borde, radio,
+   sombra, foco), en formato de fila con una foto más pequeña. */
+.quiz-card--compact {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: 0.6rem var(--space-sm);
+  text-align: left;
+}
+
+.quiz-card--compact[draggable='true'] {
+  cursor: grab;
+}
+
+.quiz-card--compact:active {
+  cursor: grabbing;
+}
+
+.quiz-card--compact .quiz-card__figure {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+}
+
+.quiz-card--compact .quiz-card__name {
+  font-size: 0.9rem;
+}
+
+/* Opción de texto de la columna derecha: mismo material que .quiz-card,
+   sin fotografía. */
+.match-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  width: 100%;
+  padding: 0.6rem var(--space-md);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--color-heading);
+  text-align: center;
+  cursor: pointer;
+  appearance: none;
+  transition: box-shadow 250ms var(--ease-elegant), border-color 250ms var(--ease-elegant),
+    background-color 250ms var(--ease-elegant);
+}
+
+.quiz-card--compact:hover,
+.quiz-card--compact:focus-visible,
+.match-slot:hover,
+.match-slot:focus-visible {
+  box-shadow: var(--shadow-hover);
+  border-color: var(--color-pink-muted);
+}
+
+.quiz-card--compact:focus-visible,
+.match-slot:focus-visible {
+  outline: 3px solid var(--color-heading);
+  outline-offset: 2px;
+}
+
+.quiz-card--compact:disabled,
+.match-slot:disabled {
+  cursor: default;
+}
+
+/* Tarjeta u opción elegida por clic/toque, a la espera de completar
+   la relación (mismo dorado de énfasis que el resto del sitio). */
+.quiz-card--compact.is-selected,
+.match-slot.is-selected {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.35), var(--shadow-soft);
+}
+
+/* Zona receptora iluminada mientras una tarjeta pasa por encima al
+   arrastrarla. */
+.match-slot.is-dragover {
+  background-color: var(--color-pink-light);
+  border-color: var(--color-accent);
+}
+
+/* La tarjeta se eleva ligeramente mientras se arrastra. */
+.quiz-card--compact.is-dragging {
+  opacity: 0.5;
+  box-shadow: var(--shadow-hover);
+}
+
+/* Relación correcta: borde verde pastel y queda bloqueada. */
+.quiz-card--compact.is-matched,
+.match-slot.is-matched {
+  background-color: #E9F5E8;
+  border-color: #AED9A8;
+  color: #2E6B32;
+}
+
+.quiz-card--compact.is-matched .quiz-card__name {
+  color: #2E6B32;
+}
+
+.quiz-card--compact.is-matched .quiz-card__name::after {
+  content: " \2714";
+}
+
+/* Intento incorrecto: breve vibración visual y borde rojo pastel. La
+   tarjeta y la opción permanecen disponibles, sin bloquearse. */
+.quiz-card--compact.is-wrong-flash,
+.match-slot.is-wrong-flash {
+  background-color: #FBEAEA;
+  border-color: #E3ABAB;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes match-shake {
+    10%, 90% { transform: translateX(-2px); }
+    20%, 80% { transform: translateX(3px); }
+    30%, 50%, 70% { transform: translateX(-4px); }
+    40%, 60% { transform: translateX(4px); }
+  }
+
+  .quiz-card--compact.is-wrong-flash,
+  .match-slot.is-wrong-flash {
+    animation: match-shake 400ms ease-in-out;
+  }
+}
+
+/* Aparición escalonada de ambas columnas al iniciar cada ronda. */
+.match__column > * {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 350ms var(--ease-elegant), transform 350ms var(--ease-elegant);
+}
+
+.match__column.is-revealed > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.match__column.is-revealed > *:nth-child(1) { transition-delay: 0ms; }
+.match__column.is-revealed > *:nth-child(2) { transition-delay: 60ms; }
+.match__column.is-revealed > *:nth-child(3) { transition-delay: 120ms; }
+.match__column.is-revealed > *:nth-child(4) { transition-delay: 180ms; }
+.match__column.is-revealed > *:nth-child(5) { transition-delay: 240ms; }
+.match__column.is-revealed > *:nth-child(6) { transition-delay: 300ms; }
+
+/* Panel "ronda completa": pequeño efecto de celebración al aparecer. */
+.match__round-complete {
+  text-align: center;
+  padding: var(--space-md) var(--space-lg);
+  background-color: var(--color-pink-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 350ms var(--ease-elegant), transform 350ms var(--ease-elegant);
+}
+
+.match__round-complete.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.match__round-complete-text {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--color-heading);
+  margin-bottom: var(--space-md);
+}
+
+@media (max-width: 480px) {
+  .match__board {
+    gap: var(--space-xs);
+  }
+
+  .quiz-card--compact .quiz-card__figure {
+    width: 44px;
+    height: 44px;
+  }
+
+  .quiz-card--compact .quiz-card__name {
+    font-size: 0.8rem;
+  }
+
+  .match-slot {
+    font-size: 0.82rem;
+    padding: 0.5rem 0.6rem;
+  }
 }

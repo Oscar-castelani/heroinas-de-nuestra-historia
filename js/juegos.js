@@ -222,10 +222,13 @@ function initQuizQuienSoy() {
     });
 
     const correctName = HEROINES[question.answer].name;
-    els.feedbackTitle.textContent = isCorrect ? '✔ Correcto' : '✘ Esa no es la respuesta correcta.';
+    els.feedbackTitle.textContent = isCorrect ? '✔ ¡Correcto!' : '✘ Incorrecto';
     els.feedbackText.textContent = isCorrect
       ? question.explanation
       : `La respuesta correcta era ${correctName}. ${question.explanation}`;
+
+    els.feedback.classList.toggle('quiz__feedback--correct', isCorrect);
+    els.feedback.classList.toggle('quiz__feedback--incorrect', !isCorrect);
 
     els.feedback.hidden = false;
     if (index + 1 >= order.length) {
