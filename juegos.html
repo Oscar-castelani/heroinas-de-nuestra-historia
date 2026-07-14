@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Juegos | Heroínas de nuestra historia</title>
-  <meta name="description" content="Poné a prueba lo aprendido sobre las heroínas de la independencia con el juego interactivo '¿Quién soy?'.">
+  <meta name="description" content="Elegí un juego interactivo para poner a prueba lo aprendido sobre las heroínas de la independencia.">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Juegos | Heroínas de nuestra historia">
-  <meta property="og:description" content="Un juego de pistas históricas para repasar la vida de las seis heroínas del recorrido.">
+  <meta property="og:description" content="Dos actividades interactivas para repasar la vida de las seis heroínas del recorrido.">
   <meta property="og:image" content="img/hero-illustration.svg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,13 +58,10 @@
           </ol>
         </nav>
         <h1 class="hero__title">Juegos interactivos</h1>
-        <p class="hero__subtitle">Poné a prueba todo lo que aprendiste durante este recorrido.</p>
+        <p class="hero__subtitle">Poné a prueba lo que aprendiste sobre las heroínas de nuestra historia.</p>
         <p class="hero__text">
-          Ahora es momento de demostrar cuánto aprendiste sobre las mujeres que participaron en la
-          independencia de Argentina y América del Sur.
-        </p>
-        <p class="hero__text">
-          Completá las actividades y descubrí cuánto recordás de cada heroína.
+          Elegí una actividad y comenzá a jugar. Cada desafío te ayudará a recordar sus historias, aportes
+          y logros.
         </p>
       </div>
       <div class="hero__media" aria-hidden="true">
@@ -72,96 +69,56 @@
       </div>
     </section>
 
-    <!-- Juego: ¿Quién soy? -->
-    <section id="quien-soy" class="content-section bg-cream">
+    <!-- Grilla de juegos -->
+    <section id="lista-juegos" class="content-section bg-cream has-blob has-blob--bl has-blob--mauve">
       <div class="container">
-        <h2><span class="info-card__icon" aria-hidden="true">🎯</span> ¿Quién soy?</h2>
+        <h2>Elegí tu juego</h2>
         <p class="content-section__intro">
-          Leé la pista histórica y elegí a qué heroína corresponde. Al responder vas a ver si acertaste
-          y un breve repaso del dato.
+          Cada actividad trabaja de una manera distinta lo que aprendiste en el recorrido. Tocá una
+          tarjeta para empezar.
         </p>
 
-        <div class="quiz" id="quiz">
+        <div class="games-grid">
 
-          <!-- Pregunta en curso -->
-          <div class="quiz__game" id="quizGame">
-            <div class="quiz__status" aria-live="polite">
-              <span class="tag">Pregunta <strong id="quizCurrent">1</strong> de <strong id="quizTotal">12</strong></span>
-              <span class="tag tag--gold">Aciertos: <strong id="quizScore">0</strong></span>
+          <a class="game-card game-card--rose" href="juegos/quien-soy.html">
+            <span class="game-card__icon" aria-hidden="true">
+              <span class="game-card__icon-glyph">❓</span>
+              <span class="game-card__icon-accent">🔍</span>
+            </span>
+            <div class="game-card__body">
+              <span class="tag">Preguntas y respuestas</span>
+              <h3>¿Quién soy?</h3>
+              <p>Leé las pistas y descubrí a qué heroína corresponde cada historia.</p>
+              <span class="heroine-card__link">Jugar ahora →</span>
             </div>
+          </a>
 
-            <div class="quiz__question" id="quizQuestion">
-              <blockquote class="quiz__clue" id="quizClue"></blockquote>
-
-              <div class="quiz__options" id="quizOptions" aria-label="Elegí la heroína correspondiente"></div>
-
-              <div class="quiz__feedback" id="quizFeedback" role="status" hidden>
-                <p class="quiz__feedback-title" id="quizFeedbackTitle"></p>
-                <p class="quiz__feedback-text" id="quizFeedbackText"></p>
-                <button class="btn btn--primary" id="quizNextBtn" type="button">Siguiente pregunta →</button>
-              </div>
+          <a class="game-card game-card--lavender" href="juegos/relacionar.html">
+            <span class="game-card__icon" aria-hidden="true">
+              <span class="game-card__icon-glyph">🧩</span>
+              <span class="game-card__icon-accent">🔗</span>
+            </span>
+            <div class="game-card__body">
+              <span class="tag">Asociación y memoria</span>
+              <h3>Relacionar</h3>
+              <p>Uní cada heroína con su lugar de nacimiento, sus aportes y sus logros.</p>
+              <span class="heroine-card__link">Jugar ahora →</span>
             </div>
-          </div>
+          </a>
 
-          <!-- Pantalla de resultados -->
-          <div class="quiz__results" id="quizResults" tabindex="-1" hidden>
-            <p class="quiz__stars" id="quizStars" aria-hidden="true"></p>
-            <h3>Obtuviste <span id="quizResultScore">0</span> de <span id="quizResultTotal">12</span> respuestas correctas.</h3>
-            <p class="quiz__result-message" id="quizResultMessage"></p>
-            <div class="quiz__result-actions">
-              <button class="btn btn--primary" id="quizReplayBtn" type="button">Volver a jugar</button>
-              <a class="btn btn--secondary" href="indice.html">Volver a Heroínas</a>
+          <a class="game-card game-card--gold" href="juegos/memotest.html">
+            <span class="game-card__icon" aria-hidden="true">
+              <span class="game-card__icon-glyph">🃏</span>
+              <span class="game-card__icon-accent">🔁</span>
+            </span>
+            <div class="game-card__body">
+              <span class="tag">Memoria y asociación</span>
+              <h3>Memotest</h3>
+              <p>Encontrá las parejas y relacioná a cada heroína con su historia.</p>
+              <span class="heroine-card__link">Jugar ahora →</span>
             </div>
-          </div>
+          </a>
 
-        </div>
-      </div>
-    </section>
-
-    <!-- Juego 2: Relacionar -->
-    <section id="relacionar" class="content-section bg-pink-light has-blob has-blob--bl has-blob--mauve">
-      <div class="container">
-        <h2><span class="info-card__icon" aria-hidden="true">🧩</span> Relacionar</h2>
-        <p class="content-section__intro">
-          Uní cada heroína con el dato correcto: arrastrá su tarjeta hasta la opción que corresponda, o
-          si preferís, tocá primero la tarjeta y después la opción. Son tres rondas con temas distintos.
-        </p>
-
-        <div class="match" id="match">
-
-          <!-- Ronda en curso -->
-          <div class="match__game" id="matchGame">
-            <div class="quiz__status" aria-live="polite">
-              <span class="tag">Ronda <strong id="matchRound">1</strong> de <strong id="matchRoundTotal">3</strong></span>
-              <span class="tag tag--gold">Aciertos: <strong id="matchScore">0</strong></span>
-              <span class="tag">Relaciones restantes: <strong id="matchRemaining">6</strong></span>
-            </div>
-
-            <p class="match__round-title" id="matchRoundTitle"></p>
-
-            <div class="match__board" id="matchBoard">
-              <div class="match__column match__column--heroines" id="matchHeroines" aria-label="Heroínas"></div>
-              <div class="match__column match__column--options" id="matchOptions" aria-label="Opciones de la ronda"></div>
-            </div>
-
-            <div class="match__round-complete" id="matchRoundComplete" hidden>
-              <p class="match__round-complete-text">¡Ronda completa! 🎉</p>
-              <button class="btn btn--primary" id="matchNextRoundBtn" type="button">Siguiente ronda →</button>
-            </div>
-          </div>
-
-          <!-- Pantalla de resultados -->
-          <div class="quiz__results" id="matchResults" tabindex="-1" hidden>
-            <p class="quiz__stars" id="matchStars" aria-hidden="true"></p>
-            <h3>Obtuviste <span id="matchResultScore">0</span> de <span id="matchResultTotal">18</span> relaciones correctas.</h3>
-            <p class="quiz__result-message" id="matchResultMessage"></p>
-            <div class="quiz__result-actions">
-              <button class="btn btn--primary" id="matchReplayBtn" type="button">Volver a jugar</button>
-              <a class="btn btn--secondary" href="indice.html">Volver a Heroínas</a>
-            </div>
-          </div>
-
-          <div id="matchAnnouncer" class="sr-only" aria-live="polite"></div>
         </div>
       </div>
     </section>
@@ -181,7 +138,5 @@
 
 
   <script src="js/script.js"></script>
-  <script src="js/juegos.js"></script>
-  <script src="js/relacionar.js"></script>
 </body>
 </html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memotest | Juegos | Heroínas de nuestra historia</title>
+  <meta name="description" content="Encontrá las parejas y relacioná a cada heroína con su historia en el Memotest de la independencia.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Memotest | Heroínas de nuestra historia">
+  <meta property="og:description" content="Un juego de memoria visual para repasar los nombres, lugares de nacimiento y aportes de las seis heroínas del recorrido.">
+  <meta property="og:image" content="../img/hero-illustration.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="../img/hero-illustration.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
+  <div class="page-panel">
+
+  <header class="site-header">
+    <div class="nav-container">
+      <a class="logo" href="../indice.html"><img class="logo__mark" src="../img/LOGO%20SAN%20PEDRO.png" alt="" width="38" height="43">Heroínas <span>de nuestra historia</span></a>
+
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Abrir menú de navegación">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+
+      <nav class="main-nav" id="navMenu" aria-label="Navegación principal">
+        <ul>
+          <li><a href="../index.html">Inicio</a></li>
+          <li><a href="../introduccion.html">Introducción</a></li>
+          <li><a href="../indice.html">Heroínas</a></li>
+          <li><a href="../reflexion.html">Reflexión</a></li>
+          <li><a href="../juegos.html">Juegos</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <nav class="breadcrumb breadcrumb-bar container" aria-label="Ruta de navegación">
+      <ol>
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="../juegos.html">Juegos</a></li>
+        <li aria-current="page">Memotest</li>
+      </ol>
+    </nav>
+
+    <div class="container game-back">
+      <a class="btn btn--secondary" href="../juegos.html">← Volver a Juegos</a>
+    </div>
+
+    <!-- Juego: Memotest -->
+    <section id="memotest" class="content-section bg-lavender has-blob has-blob--tr has-blob--gold">
+      <div class="container">
+        <h2><span class="info-card__icon" aria-hidden="true">🃏</span> Memotest</h2>
+        <p class="content-section__intro">
+          Encontrá las parejas y relacioná a cada heroína con su historia.
+        </p>
+
+        <div class="memo" id="memo">
+
+          <!-- Pantalla inicial: elegir modalidad -->
+          <div class="memo__intro" id="memoIntro">
+            <p class="content-section__intro">
+              Elegí una modalidad, descubrí las cartas y encontrá todas las parejas.
+            </p>
+
+            <div class="games-grid memo__modes">
+              <button type="button" class="game-card game-card--gold mode-card" data-mode="names" aria-pressed="false">
+                <span class="game-card__icon" aria-hidden="true">
+                  <span class="game-card__icon-glyph">🖼️</span>
+                  <span class="game-card__icon-accent">🔤</span>
+                </span>
+                <span class="game-card__body">
+                  <span class="tag">Modalidad 1</span>
+                  <span class="game-card__title">Imagen y nombre</span>
+                  <span class="game-card__desc">Relacioná el retrato de cada heroína con su nombre.</span>
+                </span>
+              </button>
+
+              <button type="button" class="game-card game-card--gold mode-card" data-mode="places" aria-pressed="false">
+                <span class="game-card__icon" aria-hidden="true">
+                  <span class="game-card__icon-glyph">📍</span>
+                  <span class="game-card__icon-accent">🗺️</span>
+                </span>
+                <span class="game-card__body">
+                  <span class="tag">Modalidad 2</span>
+                  <span class="game-card__title">Heroína y lugar</span>
+                  <span class="game-card__desc">Relacioná a cada heroína con su lugar de nacimiento.</span>
+                </span>
+              </button>
+
+              <button type="button" class="game-card game-card--gold mode-card" data-mode="contributions" aria-pressed="false">
+                <span class="game-card__icon" aria-hidden="true">
+                  <span class="game-card__icon-glyph">🏅</span>
+                  <span class="game-card__icon-accent">⭐</span>
+                </span>
+                <span class="game-card__body">
+                  <span class="tag">Modalidad 3</span>
+                  <span class="game-card__title">Heroína y aporte</span>
+                  <span class="game-card__desc">Relacioná a cada heroína con uno de sus principales aportes o logros.</span>
+                </span>
+              </button>
+            </div>
+
+            <div class="memo__start-wrap">
+              <button type="button" class="btn btn--primary" id="memoStartBtn" disabled>Comenzar partida</button>
+            </div>
+          </div>
+
+          <!-- Partida en curso -->
+          <div class="memo__game" id="memoGame" hidden>
+            <div class="quiz__status">
+              <span class="tag">Modalidad: <strong id="memoModeLabel"></strong></span>
+              <span class="tag tag--gold">Parejas: <strong id="memoPairsFound">0</strong> de <strong id="memoPairsTotal">6</strong></span>
+              <span class="tag">Movimientos: <strong id="memoMoves">0</strong></span>
+              <span class="tag">Tiempo: <strong id="memoTimer">00:00</strong></span>
+            </div>
+
+            <div class="memo-board" id="memoBoard"></div>
+          </div>
+
+          <!-- Pantalla de resultados -->
+          <div class="quiz__results" id="memoResults" tabindex="-1" hidden>
+            <h3>¡Completaste el Memotest!</h3>
+            <p class="memo-result-stats">
+              <span>Modalidad: <strong id="memoResultMode"></strong></span>
+              <span>Movimientos: <strong id="memoResultMoves"></strong></span>
+              <span>Tiempo: <strong id="memoResultTime"></strong></span>
+            </p>
+            <p class="quiz__result-message" id="memoResultMessage"></p>
+            <div class="quiz__result-actions">
+              <button class="btn btn--primary" id="memoReplayBtn" type="button">Jugar de nuevo</button>
+              <button class="btn btn--secondary" id="memoChangeModeBtn" type="button">Elegir otra modalidad</button>
+              <a class="btn btn--secondary" href="../juegos.html">Volver a Juegos</a>
+              <a class="btn btn--secondary" href="../indice.html">Volver a Heroínas</a>
+            </div>
+          </div>
+
+          <div id="memoAnnouncer" class="sr-only" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navegación de cierre -->
+    <section class="content-section bg-cream text-center">
+      <div class="container quiz__result-actions">
+        <a class="btn btn--secondary" href="../juegos.html">← Volver a Juegos</a>
+        <a class="btn btn--secondary" href="../indice.html">Volver a Heroínas</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__content">
+      <h2>Heroínas de nuestra historia</h2>
+      <p>Sitio educativo sobre las mujeres que participaron en la independencia de Argentina y América Latina.</p>
+      <p class="site-footer__meta">
+        © <span id="year"></span> — <a href="../index.html">Volver a la portada</a>
+      </p>
+    </div>
+  </footer>
+  </div>
+
+
+  <script src="../js/script.js"></script>
+  <script src="../js/juegos.js"></script>
+  <script src="../js/memotest.js"></script>
+</body>
+</html>

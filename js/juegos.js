@@ -1,16 +1,20 @@
 // =========================================================
 // Juegos — "¿Quién soy?"
-// Este script solo se ejecuta en juegos.html (comprueba la
-// presencia de #quiz antes de inicializar nada).
+// Se carga en juegos/quien-soy.html (comprueba la presencia de
+// #quiz antes de inicializar el juego) y también en
+// juegos/relacionar.html, que reutiliza HEROINES / OPTION_ORDER /
+// shuffle() de este archivo sin volver a declararlos.
 // =========================================================
 
+// Rutas relativas a las páginas que consumen estos datos, ambas dentro de
+// /juegos/ (juegos/quien-soy.html y juegos/relacionar.html).
 const HEROINES = {
-  'manuela-saenz': { name: 'Manuela Sáenz', img: 'img/manuela-saenz.jpg' },
-  'juana-azurduy': { name: 'Juana Azurduy', img: 'img/juana-azurduy.jpg' },
-  'mariquita-sanchez': { name: 'Mariquita Sánchez de Thompson', img: 'img/mariquita-sanchez.jpg' },
-  'macacha-guemes': { name: 'Macacha Güemes', img: 'img/macacha-guemes.png' },
-  'maria-remedios-del-valle': { name: 'María Remedios del Valle', img: 'img/remedios-del-valle.jpg' },
-  'policarpa-salavarrieta': { name: 'Policarpa Salavarrieta', img: 'img/policarpa-salavarrieta.jpg' },
+  'manuela-saenz': { name: 'Manuela Sáenz', img: '../img/manuela-saenz.jpg' },
+  'juana-azurduy': { name: 'Juana Azurduy', img: '../img/juana-azurduy.jpg' },
+  'mariquita-sanchez': { name: 'Mariquita Sánchez de Thompson', img: '../img/mariquita-sanchez.jpg' },
+  'macacha-guemes': { name: 'Macacha Güemes', img: '../img/macacha-guemes.png' },
+  'maria-remedios-del-valle': { name: 'María Remedios del Valle', img: '../img/remedios-del-valle.jpg' },
+  'policarpa-salavarrieta': { name: 'Policarpa Salavarrieta', img: '../img/policarpa-salavarrieta.jpg' },
 };
 
 // Orden fijo en el que se muestran las tarjetas de opciones en cada pregunta.
