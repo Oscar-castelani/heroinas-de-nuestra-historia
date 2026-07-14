@@ -64,6 +64,18 @@
   box-sizing: border-box;
 }
 
+/* Garantiza que el atributo `hidden` siempre oculte el elemento, sin
+   importar qué componente lo use. Varias clases del sitio (.btn, .tag,
+   .heroine-card__link, etc.) fijan su propio `display`, y en la cascada
+   CSS una regla de autor con esa propiedad le gana a la hoja de estilos
+   por defecto del navegador (`[hidden] { display: none }`, de origen
+   user-agent) aunque tengan la misma especificidad. Sin esta regla,
+   `elemento.hidden = true` sobre, por ejemplo, un <button class="btn">
+   no oculta nada visualmente. */
+[hidden] {
+  display: none !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
