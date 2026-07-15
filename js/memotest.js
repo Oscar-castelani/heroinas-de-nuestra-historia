@@ -71,6 +71,7 @@ function initMemotest() {
     moves: document.getElementById('memoMoves'),
     timer: document.getElementById('memoTimer'),
     board: document.getElementById('memoBoard'),
+    backToModesBtn: document.getElementById('memoBackToModesBtn'),
     results: document.getElementById('memoResults'),
     resultMode: document.getElementById('memoResultMode'),
     resultMoves: document.getElementById('memoResultMoves'),
@@ -94,6 +95,7 @@ function initMemotest() {
   let elapsedSeconds = 0;
   let timerHandle = null;
   let timerStarted = false;
+  let gameStatePushed = false;
 
   els.modeButtons.forEach((button) => {
     button.addEventListener('click', () => selectMode(button));
@@ -104,6 +106,7 @@ function initMemotest() {
     els.intro.hidden = true;
     els.results.hidden = true;
     els.game.hidden = false;
+    enterGameHistory();
     startGame();
   });
 
@@ -114,6 +117,38 @@ function initMemotest() {
   });
 
   els.changeModeBtn.addEventListener('click', () => {
+    goToModeSelection();
+  });
+
+  els.backToModesBtn.addEventListener('click', () => {
+    goToModeSelection();
+  });
+
+  // Al entrar a una partida se agrega una entrada propia al historial,
+  // de modo que el botón/gesto "Atrás" nativo del navegador lleve primero
+  // a la selección de modalidad y no directamente a la página de Juegos.
+  function enterGameHistory() {
+    if (!gameStatePushed) {
+      history.pushState({ memoScreen: 'playing' }, '', location.href);
+      gameStatePushed = true;
+    }
+  }
+
+  // Navegación explícita hacia la selección de modalidad. Si hay una
+  // entrada de historial propia (empujada al comenzar la partida), se
+  // retira con history.back() en vez de togglear la pantalla a mano,
+  // para no dejar una entrada "fantasma" que obligue a presionar Atrás
+  // dos veces; el listener de popstate hace la sincronización real de
+  // la pantalla en ambos casos (botón propio o Atrás del navegador).
+  function goToModeSelection() {
+    if (gameStatePushed) {
+      history.back();
+    } else {
+      resetToModeSelection();
+    }
+  }
+
+  function resetToModeSelection() {
     stopTimer();
     els.results.hidden = true;
     els.game.hidden = true;
@@ -121,6 +156,11 @@ function initMemotest() {
     deselectAllModes();
     selectedMode = null;
     els.startBtn.disabled = true;
+  }
+
+  window.addEventListener('popstate', () => {
+    gameStatePushed = false;
+    resetToModeSelection();
   });
 
   function selectMode(button) {

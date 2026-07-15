@@ -2233,11 +2233,22 @@ button:focus-visible {
   margin-bottom: var(--space-md);
 }
 
-/* Pantalla de resultados finales */
+/* Pantalla de resultados finales: card blanca cálida compartida por
+   los 6 juegos (quiz__results envuelve título, estadísticas, medalla/
+   estrellas si el juego las usa, mensaje y acciones propias). */
 .quiz__results {
   text-align: center;
-  max-width: 520px;
+  max-width: 680px;
   margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-pink-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.quiz__results h3 {
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
 }
 
 .quiz__stars {
@@ -2259,6 +2270,19 @@ button:focus-visible {
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--space-sm);
+}
+
+/* En móvil, tanto las acciones propias del juego (dentro de la card)
+   como la navegación general al pie de la página (que reutiliza esta
+   misma clase) se apilan a ancho completo si no entran en una fila. */
+@media (max-width: 480px) {
+  .quiz__result-actions {
+    flex-direction: column;
+  }
+
+  .quiz__result-actions .btn {
+    width: 100%;
+  }
 }
 
 /* =========================================================
@@ -2736,6 +2760,7 @@ button:focus-visible {
 }
 
 .mode-card {
+  position: relative;
   width: 100%;
   cursor: pointer;
   appearance: none;
@@ -2743,9 +2768,39 @@ button:focus-visible {
   color: inherit;
 }
 
+/* Estado seleccionado: verde pastel persistente (más intenso que el
+   flash de "correcto" en verde de .quiz-card--compact.is-matched, para
+   que no se confunda con una retroalimentación momentánea), reforzado
+   con una insignia ✓ y no solo con el color, para quien no distinga
+   verde/rosa. El foco y el hover (heredados de .game-card) se
+   mantienen intactos y siguen siendo visibles sobre este fondo. */
 .mode-card.is-selected {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.35), var(--shadow-hover);
+  background-color: #DDF3E4;
+  border-color: #4F9D69;
+  box-shadow: 0 0 0 3px rgba(79, 157, 105, 0.3), var(--shadow-hover);
+}
+
+.mode-card.is-selected .game-card__title,
+.mode-card.is-selected .game-card__desc {
+  color: #285D3B;
+}
+
+.mode-card.is-selected::after {
+  content: "\2714";
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #4F9D69;
+  color: #FFFFFF;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-soft);
 }
 
 .memo__start-wrap {
@@ -2770,6 +2825,30 @@ button:focus-visible {
   .memo-board {
     grid-template-columns: repeat(4, 1fr);
     gap: var(--space-md);
+  }
+}
+
+/* Acciones dentro de una partida en curso: dos botones con destinos
+   claramente distintos (volver a elegir modalidad vs. salir del
+   Memotest), nunca el mismo control para ambos casos. .btn ya
+   garantiza min-height:44px; en pantallas angostas se apilan en
+   columna en vez de quedar amontonados uno junto al otro. */
+.memo__game-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+@media (max-width: 480px) {
+  .memo__game-actions {
+    flex-direction: column;
+  }
+
+  .memo__game-actions .btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 
@@ -2982,9 +3061,19 @@ button:focus-visible {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--space-md);
+  gap: 0.6rem;
   margin-bottom: var(--space-md);
+}
+
+.memo-result-stats span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  background-color: var(--color-pink-light);
   color: var(--color-text);
+  font-size: 0.85rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
 }
 
 .memo-result-stats strong {
@@ -3006,28 +3095,60 @@ button:focus-visible {
   text-align: center;
 }
 
-.df__intro h3 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  margin-bottom: var(--space-sm);
+/* Recuadro blanco que agrupa las características del juego (antes
+   dispersas en una fila de "pills"), debajo del título/descripción
+   únicos de .game-header. Mismo material que .info-card: superficie
+   blanca, radio grande y sombra suave. */
+.df__intro-card {
+  max-width: 520px;
+  margin: 0 auto var(--space-lg);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-lg) var(--space-xl);
+  text-align: left;
 }
 
 .df__intro-topics {
   list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
-  margin: var(--space-md) 0 var(--space-lg);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem 1.5rem;
+  margin: 0;
   padding: 0;
 }
 
+@media (max-width: 480px) {
+  .df__intro-topics {
+    grid-template-columns: 1fr;
+  }
+}
+
 .df__intro-topics li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  color: var(--color-text);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.df__intro-topics li::before {
+  content: "\2713";
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-top: 0.1em;
+  border-radius: 50%;
   background-color: var(--color-pink-light);
   color: var(--color-heading);
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  padding: 0.4rem 0.9rem;
-  border-radius: 999px;
 }
 
 /* Barra de progreso */
@@ -3202,9 +3323,19 @@ button:focus-visible {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--space-md);
+  gap: 0.6rem;
   margin-bottom: var(--space-md);
+}
+
+.df-result-stats span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  background-color: var(--color-pink-light);
   color: var(--color-text);
+  font-size: 0.85rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
 }
 
 .df-result-stats strong {
