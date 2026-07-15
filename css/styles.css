@@ -1603,9 +1603,19 @@ button:focus-visible {
   pointer-events: none;
 }
 
+/* max-width ensanchado levemente (antes 70ch ≈ 557px) para que la frase
+   destacada (.reflection__highlight) entre en una sola línea en
+   escritorio y tablet: a su tamaño máximo (28.8px) necesita ~581px y el
+   ancho anterior se quedaba corto por muy poco. */
 .reflection__content {
-  max-width: 70ch;
+  max-width: 640px;
   margin-inline: auto;
+}
+
+/* Separa la ilustración del título (estaban pegados, sin espacio propio),
+   sin tocar la regla general .hero__media que usan otras páginas. */
+#reflexion .hero__media {
+  margin-bottom: 36px;
 }
 
 .reflection__highlight {
