@@ -9,12 +9,12 @@
 // Rutas relativas a las páginas que consumen estos datos, ambas dentro de
 // /juegos/ (juegos/quien-soy.html y juegos/relacionar.html).
 const HEROINES = {
-  'manuela-saenz': { name: 'Manuela Sáenz', img: '../img/manuela-saenz.jpg' },
-  'juana-azurduy': { name: 'Juana Azurduy', img: '../img/juana-azurduy.jpg' },
-  'mariquita-sanchez': { name: 'Mariquita Sánchez de Thompson', img: '../img/mariquita-sanchez.jpg' },
-  'macacha-guemes': { name: 'Macacha Güemes', img: '../img/macacha-guemes.png' },
-  'maria-remedios-del-valle': { name: 'María Remedios del Valle', img: '../img/remedios-del-valle.jpg' },
-  'policarpa-salavarrieta': { name: 'Policarpa Salavarrieta', img: '../img/policarpa-salavarrieta.jpg' },
+  'manuela-saenz': { name: 'Manuela Sáenz', img: '../img/manuela-saenz.webp' },
+  'juana-azurduy': { name: 'Juana Azurduy', img: '../img/juana-azurduy.webp' },
+  'mariquita-sanchez': { name: 'Mariquita Sánchez de Thompson', img: '../img/mariquita-sanchez.webp' },
+  'macacha-guemes': { name: 'Macacha Güemes', img: '../img/macacha-guemes.webp' },
+  'maria-remedios-del-valle': { name: 'María Remedios del Valle', img: '../img/remedios-del-valle.webp' },
+  'policarpa-salavarrieta': { name: 'Policarpa Salavarrieta', img: '../img/policarpa-salavarrieta.webp' },
 };
 
 // Orden fijo en el que se muestran las tarjetas de opciones en cada pregunta.
