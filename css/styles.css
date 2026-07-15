@@ -128,6 +128,7 @@ body::after {
   z-index: 1;
   max-width: 1400px;
   margin: clamp(1rem, 4vw, 2.75rem) auto;
+  padding-top: var(--header-height);
   border-radius: 24px;
   background-color: var(--color-surface);
   box-shadow: 0 30px 70px rgba(111, 61, 75, 0.14), 0 6px 18px rgba(111, 61, 75, 0.06);
@@ -224,8 +225,10 @@ p, li {
   line-height: 1;
 }
 
-/* Desplaza el punto de anclaje para que el header sticky no tape los títulos */
-main section[id] {
+/* Desplaza el punto de anclaje para que el header fijo no tape los títulos
+   (incluye #contenido: es donde aterriza el skip-link de accesibilidad). */
+main section[id],
+#contenido {
   scroll-margin-top: calc(var(--header-height) + 16px);
 }
 
@@ -310,8 +313,17 @@ button:focus-visible {
 /* =========================================================
    Encabezado y navegación
    ========================================================= */
+/* position: sticky no queda "pegado" porque .page-panel (su ancestro)
+   tiene overflow: hidden para recortar las esquinas redondeadas de toda
+   la página — eso invalida el contenedor de sticky en los navegadores.
+   Se usa position: fixed como indica la consigna para este caso, y se
+   compensa el hueco que deja en el flujo con padding-top en .page-panel
+   (ver esa regla). */
 .site-header {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 10;
   background-color: rgba(255, 252, 251, 0.85);
   backdrop-filter: blur(8px);
