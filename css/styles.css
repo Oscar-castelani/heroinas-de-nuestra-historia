@@ -1173,6 +1173,18 @@ button:focus-visible {
   margin-bottom: var(--space-lg);
 }
 
+/* Título de sección centrado: usado en las páginas individuales de
+   heroínas, donde ya no hay ícono a la izquierda del texto. display:
+   block + text-align: center en vez de justify-content porque, sin
+   ícono, el h2 no necesita seguir siendo un contenedor flex; así el
+   texto se centra sin dejar ningún hueco reservado a la izquierda.
+   Especificidad reforzada (.content-section h2 + esta clase) para
+   ganarle a la regla de arriba sin depender del orden en el archivo. */
+.content-section h2.section-title--centered {
+  display: block;
+  text-align: center;
+}
+
 /* Botón secundario, discreto (p. ej. "Volver a todas las heroínas") */
 .btn--secondary {
   background-color: transparent;
