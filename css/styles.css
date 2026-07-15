@@ -362,7 +362,9 @@ button:focus-visible {
 .nav-toggle {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   gap: 5px;
   width: 44px;
   height: 44px;
@@ -701,6 +703,17 @@ button:focus-visible {
   background-color: var(--color-pink-light);
 }
 
+/* Optimización móvil (auditoría UX): el retrato en proporción 3:4 a
+   ancho completo ocupaba hasta el 72% del alto de un teléfono antes de
+   llegar al título. Se limita su altura; como sigue siendo
+   object-fit:cover, la imagen se recorta un poco más (nunca se
+   deforma) para llenar el espacio más bajo. */
+@media (max-width: 767px) {
+  .heroine__figure img {
+    max-height: 340px;
+  }
+}
+
 /* Respaldo visual si la imagen no carga */
 .heroine__figure.img-fallback img {
   object-fit: contain;
@@ -1030,6 +1043,22 @@ button:focus-visible {
 .quote-block-section {
   position: relative;
   padding: var(--space-2xl) 0;
+}
+
+/* Optimización móvil (auditoría UX): var(--space-2xl) son 120px, pensados
+   para separar secciones en pantallas grandes. En una página de heroína
+   hay hasta 7 secciones seguidas, así que en escritorio esto suma más de
+   1500px de padding vacío. Por debajo de 768px se reduce a un espaciado
+   más proporcional sin tocar ni una palabra de contenido. Las secciones
+   que ya tienen su propio ajuste puntual por ID (#bienvenidos, #heroinas,
+   el primer .content-section de las páginas de juegos) no se ven
+   afectadas: esas reglas, más específicas, siguen mandando. */
+@media (max-width: 767px) {
+  .content-section,
+  .quote-block-section {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
 }
 
 .content-section__intro {
@@ -1406,7 +1435,7 @@ button:focus-visible {
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
-  min-height: 34px;
+  min-height: 44px;
   font-weight: 700;
   font-size: 0.72rem;
   letter-spacing: 0.03em;
@@ -1585,6 +1614,16 @@ button:focus-visible {
   background-color: var(--color-lavender);
   padding: var(--space-xl) var(--space-md);
   text-align: center;
+}
+
+/* Optimización móvil (auditoría UX): mismo criterio que .content-section,
+   solo se toca el padding vertical (var(--space-xl) = 80px), el
+   horizontal queda igual. */
+@media (max-width: 767px) {
+  .reflection {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
 }
 
 .reflection::before {
@@ -2010,6 +2049,53 @@ button:focus-visible {
   }
 }
 
+/* ---------- Optimización móvil (auditoría UX) ----------
+   Por debajo de 768px, las tarjetas de opción (¿Quién soy? y las
+   "sospechosas" de El Detective Histórico, ambos usan .quiz__options)
+   dejan de ser un cuadrado grande en una sola columna y pasan a un
+   formato compacto y horizontal: mismo componente y misma técnica ya
+   usada en Relacionar (.quiz-card--compact), aplicado aquí también a
+   .quiz-card "pelado" para no duplicar reglas. Reduce la altura total
+   de la grilla de opciones en aproximadamente un 70%. */
+@media (max-width: 767px) {
+  .quiz__options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: var(--space-md);
+  }
+
+  .quiz__options .quiz-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 8px 10px;
+    text-align: left;
+  }
+
+  .quiz__options .quiz-card__figure {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+  }
+
+  .quiz__options .quiz-card__name {
+    font-size: 0.85rem;
+    line-height: 1.25;
+  }
+}
+
+/* En teléfonos muy angostos, dos columnas de tarjetas compactas
+   siguen siendo más cómodas que una sola columna de tarjetas grandes,
+   pero si el nombre no entra bien se puede pasar a una columna sin
+   perder el formato compacto. */
+@media (max-width: 374px) {
+  .quiz__options {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Tarjeta-opción: mismo tratamiento visual que .info-card (fondo, borde,
    radio, sombra). Aparece con stagger cuando el contenedor recibe
    ".is-revealed", con el mismo criterio de retardos que .heroine-cards. */
@@ -2426,6 +2512,16 @@ button:focus-visible {
   gap: var(--space-lg);
 }
 
+/* Optimización móvil (auditoría UX): con las cards ya compactadas más
+   abajo, dos columnas empiezan a verse cómodas antes de los 640px
+   originales. */
+@media (min-width: 420px) {
+  .games-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-md);
+  }
+}
+
 @media (min-width: 640px) {
   .games-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2558,6 +2654,48 @@ button:focus-visible {
 
 .game-card:hover .heroine-card__link {
   background-color: var(--color-pink);
+}
+
+/* Optimización móvil (auditoría UX): las cards del menú de Juegos (y,
+   por herencia, las de modalidad de Memotest, que reutilizan esta misma
+   clase) medían ~430px de alto apiladas de a una. Se achica el ícono y
+   se ajusta la tipografía/espaciado interno para bajar la altura total
+   sin perder nada de texto ni el ícono en sí. */
+@media (max-width: 767px) {
+  .game-card {
+    padding: 14px;
+  }
+
+  .game-card__icon {
+    height: 72px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+  }
+
+  .game-card__icon-glyph {
+    font-size: 2.25rem;
+  }
+
+  .game-card__icon-accent {
+    font-size: 1.2rem;
+  }
+
+  .game-card__body .tag {
+    margin-bottom: 8px;
+  }
+
+  .game-card__body h3,
+  .game-card__title {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+  }
+
+  .game-card__body p,
+  .game-card__desc {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    margin-bottom: 12px;
+  }
 }
 
 /* Páginas de juegos: al no tener hero ni breadcrumb antes del
@@ -3298,6 +3436,28 @@ button:focus-visible {
 .detective-file__actions {
   display: flex;
   justify-content: center;
+}
+
+/* Optimización móvil (auditoría UX): el expediente tenía 48px de padding
+   en los cuatro lados y cada pista otros ~10px verticales; con hasta 5
+   pistas visibles esto lo convertía en el mayor responsable del scroll
+   del juego. Se compacta el padding y el texto sin ocultar ninguna
+   pista ni acortar su contenido. */
+@media (max-width: 767px) {
+  .detective-file {
+    padding: 20px;
+    margin-bottom: var(--space-md);
+  }
+
+  .detective-file__title {
+    margin-bottom: 14px;
+  }
+
+  .detective-file__clues li {
+    padding: 8px 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
 }
 
 /* Tarjetas de sospechosas: mismo componente que "¿Quién soy?"
