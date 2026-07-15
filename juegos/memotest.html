@@ -67,7 +67,7 @@
             </p>
 
             <div class="games-grid memo__modes">
-              <button type="button" class="game-card game-card--gold mode-card" data-mode="names" aria-pressed="false">
+              <div class="game-card game-card--gold mode-card">
                 <span class="game-card__icon" aria-hidden="true">
                   <span class="game-card__icon-glyph">🖼️</span>
                   <span class="game-card__icon-accent">🔤</span>
@@ -76,10 +76,11 @@
                   <span class="tag">Modalidad 1</span>
                   <span class="game-card__title">Imagen y nombre</span>
                   <span class="game-card__desc">Relacioná el retrato de cada heroína con su nombre.</span>
+                  <button type="button" class="btn btn--primary mode-card__start-btn" data-mode="names" aria-label="Comenzar modalidad Imagen y nombre">Comenzar</button>
                 </span>
-              </button>
+              </div>
 
-              <button type="button" class="game-card game-card--gold mode-card" data-mode="places" aria-pressed="false">
+              <div class="game-card game-card--gold mode-card">
                 <span class="game-card__icon" aria-hidden="true">
                   <span class="game-card__icon-glyph">📍</span>
                   <span class="game-card__icon-accent">🗺️</span>
@@ -88,10 +89,11 @@
                   <span class="tag">Modalidad 2</span>
                   <span class="game-card__title">Heroína y lugar</span>
                   <span class="game-card__desc">Relacioná a cada heroína con su lugar de nacimiento.</span>
+                  <button type="button" class="btn btn--primary mode-card__start-btn" data-mode="places" aria-label="Comenzar modalidad Heroína y lugar">Comenzar</button>
                 </span>
-              </button>
+              </div>
 
-              <button type="button" class="game-card game-card--gold mode-card" data-mode="contributions" aria-pressed="false">
+              <div class="game-card game-card--gold mode-card">
                 <span class="game-card__icon" aria-hidden="true">
                   <span class="game-card__icon-glyph">🏅</span>
                   <span class="game-card__icon-accent">⭐</span>
@@ -100,12 +102,9 @@
                   <span class="tag">Modalidad 3</span>
                   <span class="game-card__title">Heroína y aporte</span>
                   <span class="game-card__desc">Relacioná a cada heroína con uno de sus principales aportes o logros.</span>
+                  <button type="button" class="btn btn--primary mode-card__start-btn" data-mode="contributions" aria-label="Comenzar modalidad Heroína y aporte">Comenzar</button>
                 </span>
-              </button>
-            </div>
-
-            <div class="memo__start-wrap">
-              <button type="button" class="btn btn--primary" id="memoStartBtn" disabled>Comenzar partida</button>
+              </div>
             </div>
           </div>
 

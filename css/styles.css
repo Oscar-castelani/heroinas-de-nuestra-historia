@@ -2746,6 +2746,48 @@ button:focus-visible {
   margin-bottom: var(--space-lg);
 }
 
+/* Optimización móvil: durante una partida en curso, el título y la
+   bajada de la sección (siempre visibles, también en la selección de
+   modalidad y en los resultados) se compactan para liberar altura y
+   que el tablero completo entre en pantalla. Selector anclado a
+   #memotest para pesar más que #contenido > .content-section:first-child
+   (que fija el padding superior de las páginas de juego) sin usar
+   !important. */
+@media (max-width: 767px) {
+  body.memo-playing #memotest.content-section {
+    padding-top: 16px;
+  }
+
+  body.memo-playing #memotest .game-header {
+    margin-bottom: 8px;
+  }
+
+  body.memo-playing #memotest .game-header h2 {
+    font-size: 1.15rem;
+    margin-bottom: 0;
+  }
+
+  body.memo-playing #memotest .game-header .content-section__intro {
+    display: none;
+  }
+
+  /* Encabezado del juego (modalidad / parejas / movimientos / tiempo)
+     en grilla 2x2 en vez de una fila que envuelve, con menos padding
+     por celda. */
+  #memoGame .quiz__status {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.4rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  #memoGame .quiz__status .tag {
+    justify-content: center;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.72rem;
+  }
+}
+
 /* Variante neutra para las 3 tarjetas de modalidad: mismo material que
    .game-card, con un acento dorado suave para distinguirlas de las cards
    de nivel superior (rosa/lavanda) de la página de Juegos. */
@@ -2759,53 +2801,31 @@ button:focus-visible {
   background: radial-gradient(circle at 50% 35%, var(--color-beige), var(--color-pink-muted) 150%);
 }
 
+/* Cada card de modalidad es autónoma (imagen, etiqueta, título,
+   descripción y su propio botón "Comenzar"): ya no es un <button> que
+   se selecciona, sino un contenedor con un botón real al pie. */
 .mode-card {
   position: relative;
   width: 100%;
-  cursor: pointer;
-  appearance: none;
-  font: inherit;
-  color: inherit;
 }
 
-/* Estado seleccionado: verde pastel persistente (más intenso que el
-   flash de "correcto" en verde de .quiz-card--compact.is-matched, para
-   que no se confunda con una retroalimentación momentánea), reforzado
-   con una insignia ✓ y no solo con el color, para quien no distinga
-   verde/rosa. El foco y el hover (heredados de .game-card) se
-   mantienen intactos y siguen siendo visibles sobre este fondo. */
-.mode-card.is-selected {
-  background-color: #DDF3E4;
-  border-color: #4F9D69;
-  box-shadow: 0 0 0 3px rgba(79, 157, 105, 0.3), var(--shadow-hover);
+/* La descripción crece para absorber el espacio sobrante y así el
+   botón queda alineado a la misma altura en las tres cards, aunque el
+   texto de cada una ocupe distinto número de líneas. */
+.mode-card .game-card__desc {
+  flex: 1;
+  margin-bottom: var(--space-sm);
 }
 
-.mode-card.is-selected .game-card__title,
-.mode-card.is-selected .game-card__desc {
-  color: #285D3B;
-}
-
-.mode-card.is-selected::after {
-  content: "\2714";
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 28px;
-  height: 28px;
+.mode-card__start-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background-color: #4F9D69;
-  color: #FFFFFF;
-  font-size: 1rem;
-  font-weight: 700;
-  box-shadow: var(--shadow-soft);
+  width: 100%;
 }
 
-.memo__start-wrap {
-  text-align: center;
-  margin-bottom: var(--space-xl);
+.mode-card__start-btn:active {
+  transform: scale(0.97);
 }
 
 .memo-board {
@@ -2815,16 +2835,24 @@ button:focus-visible {
   margin-bottom: var(--space-md);
 }
 
-@media (max-width: 420px) {
-  .memo-board.memo-board--long-text {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 @media (min-width: 700px) {
   .memo-board {
     grid-template-columns: repeat(4, 1fr);
     gap: var(--space-md);
+  }
+}
+
+/* Optimización móvil: más columnas (menos filas) para que el tablero
+   completo entre en pantalla sin scroll. Al reducir la altura por
+   fila más de lo que reduce el ancho por columna (las cartas usan
+   aspect-ratio 3/4), sumar columnas es lo que más achica la altura
+   total del tablero. */
+@media (max-width: 767px) {
+  .memo-board,
+  .memo-board.memo-board--long-text {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: var(--space-sm);
   }
 }
 
@@ -3016,6 +3044,32 @@ button:focus-visible {
   overflow-wrap: anywhere;
   word-break: break-word;
   text-align: center;
+}
+
+/* Optimización móvil: cartas más chicas (más columnas) necesitan menos
+   relleno interno y un piso de tipografía algo menor para que el
+   contenido siga entrando sin desbordar, sin dejar de ser legible. */
+@media (max-width: 767px) {
+  .memo-card__face--front {
+    padding: 0.35rem;
+  }
+
+  .memo-card__content--identity img {
+    width: 38%;
+  }
+
+  .memo-card__label {
+    font-size: clamp(0.62rem, 3vw, 0.85rem);
+  }
+
+  .memo-card__name {
+    font-size: clamp(0.56rem, 2.2vw, 0.72rem);
+  }
+
+  .memo-card__fact {
+    font-size: clamp(0.56rem, 2.4vw, 0.72rem);
+    line-height: 1.25;
+  }
 }
 
 /* Relación correcta: borde/fondo verde pastel, ícono ✓ además del color. */

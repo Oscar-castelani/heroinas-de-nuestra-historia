@@ -63,8 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function initMemotest() {
   const els = {
     intro: document.getElementById('memoIntro'),
-    modeButtons: Array.from(document.querySelectorAll('.mode-card')),
-    startBtn: document.getElementById('memoStartBtn'),
+    modeStartButtons: Array.from(document.querySelectorAll('.mode-card__start-btn')),
     game: document.getElementById('memoGame'),
     modeLabel: document.getElementById('memoModeLabel'),
     pairsFound: document.getElementById('memoPairsFound'),
@@ -97,22 +96,25 @@ function initMemotest() {
   let timerStarted = false;
   let gameStatePushed = false;
 
-  els.modeButtons.forEach((button) => {
-    button.addEventListener('click', () => selectMode(button));
-  });
-
-  els.startBtn.addEventListener('click', () => {
-    if (!selectedMode) return;
-    els.intro.hidden = true;
-    els.results.hidden = true;
-    els.game.hidden = false;
-    enterGameHistory();
-    startGame();
+  // Cada card de modalidad es autónoma: su propio botón selecciona esa
+  // modalidad y arranca la partida en el mismo gesto, sin paso intermedio
+  // ni concepto de card "seleccionada".
+  els.modeStartButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      selectedMode = button.dataset.mode;
+      els.intro.hidden = true;
+      els.results.hidden = true;
+      els.game.hidden = false;
+      document.body.classList.add('memo-playing');
+      enterGameHistory();
+      startGame();
+    });
   });
 
   els.replayBtn.addEventListener('click', () => {
     els.results.hidden = true;
     els.game.hidden = false;
+    document.body.classList.add('memo-playing');
     startGame();
   });
 
@@ -153,30 +155,14 @@ function initMemotest() {
     els.results.hidden = true;
     els.game.hidden = true;
     els.intro.hidden = false;
-    deselectAllModes();
+    document.body.classList.remove('memo-playing');
     selectedMode = null;
-    els.startBtn.disabled = true;
   }
 
   window.addEventListener('popstate', () => {
     gameStatePushed = false;
     resetToModeSelection();
   });
-
-  function selectMode(button) {
-    deselectAllModes();
-    button.classList.add('is-selected');
-    button.setAttribute('aria-pressed', 'true');
-    selectedMode = button.dataset.mode;
-    els.startBtn.disabled = false;
-  }
-
-  function deselectAllModes() {
-    els.modeButtons.forEach((button) => {
-      button.classList.remove('is-selected');
-      button.setAttribute('aria-pressed', 'false');
-    });
-  }
 
   function startGame() {
     const mode = MEMOTEST_MODES[selectedMode];
@@ -375,6 +361,7 @@ function initMemotest() {
     stopTimer();
     els.game.hidden = true;
     els.results.hidden = false;
+    document.body.classList.remove('memo-playing');
 
     els.resultMode.textContent = MEMOTEST_MODES[selectedMode].label;
     els.resultMoves.textContent = String(moves);
