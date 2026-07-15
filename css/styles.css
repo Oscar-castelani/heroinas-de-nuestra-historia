@@ -779,6 +779,13 @@ button:focus-visible {
   text-align: left;
 }
 
+/* El círculo del ícono queda centrado horizontalmente en la card,
+   aunque el título y la descripción sigan alineados a la izquierda
+   (el ícono ya se centra en sí mismo vía .info-card__icon). */
+.logros-grid .info-card__icon {
+  margin-inline: auto;
+}
+
 .logros-grid .info-card p {
   margin: 0;
   font-size: 0.95rem;
